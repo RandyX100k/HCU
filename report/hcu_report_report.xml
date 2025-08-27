@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="paperformat_hcu_protocol" model="report.paperformat">
+    <field name="name">HCU Protocol A4 Tight</field>
+    <field name="default" eval="False"/>
+    <field name="format">A4</field>
+    <field name="margin_top">8</field>
+    <field name="margin_bottom">8</field>
+    <field name="margin_left">8</field>
+    <field name="margin_right">8</field>
+    <field name="orientation">Portrait</field>
+    <field name="header_line" eval="False"/>
+    <field name="header_spacing">0</field>
+    <field name="dpi">96</field>
+  </record>
+
+  <record id="action_report_hcu_surgery_protocol" model="ir.actions.report">
+    <field name="name">Protocolo Quirúrgico</field>
+    <field name="model">hcu.surgery.protocol</field>
+    <field name="report_name">hcu_surgery_protocol.report_surgery_protocol</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="paperformat_id" ref="paperformat_hcu_protocol"/>
+    <field name="print_report_name">'PROT-%s.pdf' % (object.name or 'nuevo')</field>
+  </record>
+</odoo>

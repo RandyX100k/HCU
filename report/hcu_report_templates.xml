@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="report_surgery_protocol">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <div class="page" style="font-size:11px;">
+
+          <meta charset="utf-8"/>
+          <style>
+            /* Importa Roboto si wkhtmltopdf soporta webfonts */
+            @font-face {
+              font-family: 'Roboto';
+              src: url('https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2') format('woff2');
+              font-weight: normal;
+              font-style: normal;
+            }
+
+            body, table, td, th, div, span {
+              font-family: 'Roboto', 'Open Sans', 'DejaVu Sans', sans-serif !important;
+              font-size: 11px;
+              color: #222;  /* gris oscuro, no negro puro */
+            }
+
+            h1, h2, h3, h4 {
+              font-family: 'Roboto', 'Open Sans', sans-serif !important;
+              font-weight: 700;
+              margin: 6px 0;
+              color: #2e2e7e; /* morado institucional */
+              letter-spacing: 0.5px;
+            }
+
+            /* Secciones título (barras moradas) */
+            .section-title {
+              background-color: #dcdcf9;
+              padding: 5px 6px;
+              font-size: 13px;
+              font-weight: bold;
+              text-transform: uppercase;
+              border: 1px solid #555;
+            }
+
+            /* Subencabezados verdes */
+            .sub-head {
+              background-color: #ccffcc;
+              font-weight: bold;
+              text-align: center;
+              border: 1px solid #444;
+              font-size: 11px;
+            }
+
+            /* Tablas generales */
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+            }
+            th, td {
+              border: 1px solid #444;
+              padding: 4px 6px;
+              vertical-align: middle;
+            }
+
+            /* Casillas tipo checkbox */
+            .check-cell {
+              text-align: center;
+              width: 18px;
+              height: 18px;
+              border: 1px solid #333;
+              font-size: 12px;
+              font-weight: bold;
+            }
+
+            /* Footer */
+            .footer {
+              font-size: 10px;
+              color: #555;
+              margin-top: 6px;
+              display: flex;
+              justify-content: space-between;
+            }
+          </style>
+
+
+          <!-- ================= A. DATOS DE ESTABLECIMIENTO Y USUARIO / PACIENTE ================= -->
+          <table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin:0;">
+            <!-- Barra morada -->
+            <tr>
+              <td colspan="12" style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;">
+                A. DATOS DE ESTABLECIMIENTO Y USUARIO / PACIENTE
+              </td>
+            </tr>
+
+            <!-- Encabezado superior (verde) -->
+            <tr style="background-color:#ccffcc; font-weight:bold; text-align:center;">
+              <td style="border:1px solid #000; width:19%;">INSTITUCIÓN DEL SISTEMA</td>
+              <td style="border:1px solid #000; width:8%;">UNICÓDIGO</td>
+              <td style="border:1px solid #000; width:19%;">ESTABLECIMIENTO DE SALUD</td>
+              <td style="border:1px solid #000; width:19%;">NÚMERO DE HISTORIA CLÍNICA ÚNICA</td>
+              <td style="border:1px solid #000; width:10%;">NÚMERO DE ARCHIVO</td>
+              <td style="border:1px solid #000; width:25%;" colspan="5"></td>
+            </tr>
+
+            <!-- Valores fila 1 -->
+            <tr>
+              <td style="border:1px solid #000;" t-esc="o.institution_id.display_name or ''"/>
+              <td style="border:1px solid #000;" t-esc="o.unicodigo or ''"/>
+              <td style="border:1px solid #000;" t-esc="o.health_center_id.display_name or ''"/>
+              <td style="border:1px solid #000;" t-esc="o.unique_medical_record or ''"/>
+              <td style="border:1px solid #000;" t-esc="o.file_number or ''"/>
+              <td style="border:1px solid #000;" colspan="5"></td>
+            </tr>
+
+            <!-- Encabezado de nombres + bloque derecho (sexo/edad/condición) -->
+            <tr style="background-color:#ccffcc; font-weight:bold; text-align:center;">
+              <td style="border:1px solid #000;">PRIMER APELLIDO</td>
+              <td style="border:1px solid #000;">SEGUNDO APELLIDO</td>
+              <td style="border:1px solid #000;">PRIMER NOMBRE</td>
+              <td style="border:1px solid #000;">SEGUNDO NOMBRE</td>
+              <td style="border:1px solid #000; width:6%;" rowspan="2">SEXO</td>
+              <td style="border:1px solid #000; width:6%;" rowspan="2">EDAD</td>
+              <td style="border:1px solid #000; width:12%;" colspan="3">CONDICIÓN EDAD<br/>(MARCAR)</td>
+              <td style="border:1px solid #000;" colspan="2" rowspan="2"></td>
+            </tr>
+            <tr style="background-color:#ccffcc; font-weight:bold; text-align:center;">
+              <td style="border:1px solid #000;"></td>
+              <td style="border:1px solid #000;"></td>
+              <td style="border:1px solid #000;"></td>
+              <td style="border:1px solid #000;"></td>
+              <td style="border:1px solid #000; width:4%;">H</td>
+              <td style="border:1px solid #000; width:4%;">D</td>
+              <td style="border:1px solid #000; width:4%;">M</td>
+            </tr>
+
+            <!-- Fila de datos (nombres desde display_name, sexo/edad, casillas H/D/M) -->
+            <tr>
+              <t t-set="tokens" t-value="(o.patient_id and (o.patient_id.display_name or '')).replace(',', ' ').split()"/>
+              <td style="border:1px solid #000;" t-esc="tokens[-2] if len(tokens) >= 2 else (tokens[0] if len(tokens)==1 else '')"/>
+              <td style="border:1px solid #000;" t-esc="tokens[-1] if len(tokens) >= 2 else ''"/>
+              <td style="border:1px solid #000;" t-esc="tokens[0] if len(tokens) >= 1 else ''"/>
+              <td style="border:1px solid #000;" t-esc="tokens[1] if len(tokens) >= 2 else ''"/>
+
+              <td style="border:1px solid #000; text-align:center;">
+                <t t-if="o.sex=='m'">M</t>
+                <t t-if="o.sex=='f'">F</t>
+                <t t-if="o.sex=='o'">O</t>
+              </td>
+              <td style="border:1px solid #000; text-align:center;" t-esc="o.age or ''"/>
+
+              <td style="border:1px solid #000; text-align:center;">
+                <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+                  <t t-if="o.age_condition=='H'">X</t>
+                </span>
+              </td>
+              <td style="border:1px solid #000; text-align:center;">
+                <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+                  <t t-if="o.age_condition=='D'">X</t>
+                </span>
+              </td>
+              <td style="border:1px solid #000; text-align:center;">
+                <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+                  <t t-if="o.age_condition=='M'">X</t>
+                </span>
+              </td>
+
+              <td style="border:1px solid #000;" colspan="2"></td>
+            </tr>
+          </table>
+
+          <!-- ================= B. DIAGNÓSTICOS ================= -->
+          <table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+            <!-- Barra morada -->
+            <tr>
+              <td colspan="5" style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;">
+                B. DIAGNÓSTICOS
+              </td>
+              <td style="background-color:#dcdcf9; padding:4px; font-size:11px; text-align:center; font-weight:bold; border:1px solid #000; width:12%;">CIE</td>
+            </tr>
+
+            <!-- PRE OPERATORIO (3 renglones) -->
+            <tr>
+              <td rowspan="3" style="background-color:#ccffcc; border:1px solid #000; width:12%; padding:4px; font-weight:bold;">Pre Operatorio:</td>
+              <td style="border:1px solid #000; width:3%; text-align:right; padding-right:6px;">1.</td>
+              <td colspan="3" style="border:1px solid #000; height:20px;" t-esc="o.preop_diagnosis or ''"/>
+              <td rowspan="3" style="border:1px solid #000; vertical-align:top; padding:3px;" t-esc="o.preop_cie or ''"/>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000; text-align:right; padding-right:6px;">2.</td>
+              <td colspan="3" style="border:1px solid #000; height:20px;"></td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000; text-align:right; padding-right:6px;">3.</td>
+              <td colspan="3" style="border:1px solid #000; height:20px;"></td>
+            </tr>
+
+            <!-- POST OPERATORIO (3 renglones) -->
+            <tr>
+              <td rowspan="3" style="background-color:#ccffcc; border:1px solid #000; padding:4px; font-weight:bold;">Post Operatorio:</td>
+              <td style="border:1px solid #000; text-align:right; padding-right:6px;">1.</td>
+              <td colspan="3" style="border:1px solid #000; height:20px;" t-esc="o.postop_diagnosis or ''"/>
+              <td rowspan="3" style="border:1px solid #000; vertical-align:top; padding:3px;" t-esc="o.postop_cie or ''"/>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000; text-align:right; padding-right:6px;">2.</td>
+              <td colspan="3" style="border:1px solid #000; height:20px;"></td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000; text-align:right; padding-right:6px;">3.</td>
+              <td colspan="3" style="border:1px solid #000; height:20px;"></td>
+            </tr>
+          </table>
+
+          <!-- ================= C. PROCEDIMIENTO ================= -->
+    <table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+      <!-- Fila de encabezado: barra morada + casillas de urgencia a la derecha -->
+      <tr>
+        <!-- Título morado a la izquierda -->
+        <td style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;" colspan="1">
+          C. PROCEDIMIENTO
+        </td>
+
+        <!-- Electiva -->
+        <td style="background-color:#ccffcc; border:1px solid #000; text-align:center; width:90px;">Electiva</td>
+        <td style="border:1px solid #000; width:18px; text-align:center;">
+          <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+            <t t-if="o.procedure_urgency=='electiva'">X</t>
+          </span>
+        </td>
+
+        <!-- Emergencia -->
+        <td style="background-color:#ccffcc; border:1px solid #000; text-align:center; width:90px;">Emergencia</td>
+        <td style="border:1px solid #000; width:18px; text-align:center;">
+          <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+            <t t-if="o.procedure_urgency=='emergencia'">X</t>
+          </span>
+        </td>
+
+        <!-- Urgencia -->
+        <td style="background-color:#ccffcc; border:1px solid #000; text-align:center; width:90px;">Urgencia</td>
+        <td style="border:1px solid #000; width:18px; text-align:center;">
+          <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+            <t t-if="o.procedure_urgency=='urgencia'">X</t>
+          </span>
+        </td>
+      </tr>
+
+      <!-- Proyectado -->
+      <tr>
+        <td style="background-color:#ccffcc; border:1px solid #000; width:140px; padding:4px; font-weight:bold;">Proyectado:</td>
+        <td colspan="6" style="border:1px solid #000; height:22px; padding:2px;" t-esc="o.procedure_projected or ''"/>
+      </tr>
+
+      <!-- Realizado -->
+      <tr>
+        <td style="background-color:#ccffcc; border:1px solid #000; padding:4px; font-weight:bold;">Realizado:</td>
+        <td colspan="6" style="border:1px solid #000; height:22px; padding:2px;" t-esc="o.procedure_done or ''"/>
+      </tr>
+
+
+    </table>
+
+          <!-- ================= D. INTEGRANTES DEL EQUIPO QUIRÚRGICO ================= -->
+<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+  <!-- Encabezado -->
+  <tr>
+    <td colspan="4" style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;">
+      D. INTEGRANTES DEL EQUIPO QUIRÚRGICO
+    </td>
+  </tr>
+
+  <!-- Cirujano 1 / Instrumentista -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; width:20%; font-weight:bold;">Cirujano 1:</td>
+    <td style="border:1px solid #000; width:30%;" t-esc="o.surgeon1_id.display_name or ''"/>
+    <td style="background-color:#ccffcc; border:1px solid #000; width:20%; font-weight:bold;">Instrumentista:</td>
+    <td style="border:1px solid #000;" t-esc="o.instrument_nurse_id.display_name or ''"/>
+  </tr>
+
+  <!-- Cirujano 2 / Circulante -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Cirujano 2:</td>
+    <td style="border:1px solid #000;" t-esc="o.surgeon2_id.display_name or ''"/>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Circulante:</td>
+    <td style="border:1px solid #000;" t-esc="o.circulating_nurse_id.display_name or ''"/>
+  </tr>
+
+  <!-- Primer Ayudante / Anestesiólogo -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Primer Ayudante:</td>
+    <td style="border:1px solid #000;" t-esc="o.first_assistant_id.display_name or ''"/>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Anestesiólogo/a:</td>
+    <td style="border:1px solid #000;" t-esc="o.anesthesiologist_id.display_name or ''"/>
+  </tr>
+
+  <!-- Segundo Ayudante / Ayudante Anestesia -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Segundo Ayudante:</td>
+    <td style="border:1px solid #000;" t-esc="o.second_assistant_id.display_name or ''"/>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Ayudante Anestesia:</td>
+    <td style="border:1px solid #000;" t-esc="o.anesthesia_assistant_id.display_name or ''"/>
+  </tr>
+
+  <!-- Tercer Ayudante / Otros -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Tercer Ayudante:</td>
+    <td style="border:1px solid #000;" t-esc="o.third_assistant_id.display_name or ''"/>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Otros:</td>
+    <td style="border:1px solid #000;" t-esc="o.team_other or ''"/>
+  </tr>
+</table>
+<!-- ================= E. TIPO ANESTESIA ================= -->
+<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+  <tr>
+    <!-- Título morado -->
+    <td style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;" colspan="2">
+      E. TIPO ANESTESIA
+    </td>
+
+    <!-- General -->
+    <td style="background-color:#ccffcc; border:1px solid #000; text-align:center; width:90px;">General</td>
+    <td style="border:1px solid #000; width:20px; text-align:center;">
+      <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+        <t t-if="o.anesthesia_type=='general'">X</t>
+      </span>
+    </td>
+
+    <!-- Regional -->
+    <td style="background-color:#ccffcc; border:1px solid #000; text-align:center; width:90px;">Regional</td>
+    <td style="border:1px solid #000; width:20px; text-align:center;">
+      <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+        <t t-if="o.anesthesia_type=='regional'">X</t>
+      </span>
+    </td>
+
+    <!-- Sedación -->
+    <td style="background-color:#ccffcc; border:1px solid #000; text-align:center; width:90px;">Sedación</td>
+    <td style="border:1px solid #000; width:20px; text-align:center;">
+      <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+        <t t-if="o.sedation">X</t>
+      </span>
+    </td>
+
+    <!-- Otros -->
+    <td style="background-color:#ccffcc; border:1px solid #000; text-align:center; width:90px;">Otros</td>
+    <td style="border:1px solid #000; text-align:left; padding:2px;" t-esc="o.anesthesia_other or ''"/>
+  </tr>
+</table>
+<!-- ================= F. TIEMPOS QUIRÚRGICOS ================= -->
+<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+  <!-- Encabezado -->
+  <tr>
+    <td colspan="7" style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;">
+      F. TIEMPOS QUIRÚRGICOS
+    </td>
+  </tr>
+
+  <!-- Fecha y horas -->
+  <tr style="background-color:#ccffcc; font-weight:bold; text-align:center;">
+    <td style="border:1px solid #000; width:22%;">FECHA DE OPERACIÓN</td>
+    <td style="border:1px solid #000; width:8%;">DÍA</td>
+    <td style="border:1px solid #000; width:8%;">MES</td>
+    <td style="border:1px solid #000; width:8%;">AÑO</td>
+    <td style="border:1px solid #000; width:18%;">HORA DE INICIO</td>
+    <td style="border:1px solid #000; width:18%;">HORA DE TERMINACIÓN</td>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="border:1px solid #000;" t-esc="o.surgery_date and o.surgery_date.strftime('%d/%m/%Y') or ''"/>
+    <td style="border:1px solid #000;" t-esc="o.surgery_date and o.surgery_date.strftime('%d') or ''"/>
+    <td style="border:1px solid #000;" t-esc="o.surgery_date and o.surgery_date.strftime('%m') or ''"/>
+    <td style="border:1px solid #000;" t-esc="o.surgery_date and o.surgery_date.strftime('%Y') or ''"/>
+    <td style="border:1px solid #000;" t-esc="o.datetime_start and o.datetime_start.strftime('%H:%M') or ''"/>
+    <td style="border:1px solid #000;" t-esc="o.datetime_end and o.datetime_end.strftime('%H:%M') or ''"/>
+  </tr>
+
+  <!-- Dieresis -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Dieresis:</td>
+    <td colspan="6" style="border:1px solid #000; height:30px;" t-esc="o.dieresis or ''"/>
+  </tr>
+
+  <!-- Exposición y Exploración -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Exposición y Exploración:</td>
+    <td colspan="6" style="border:1px solid #000; height:30px;" t-esc="o.exposure_exploration or ''"/>
+  </tr>
+
+  <!-- Hallazgos -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Hallazgos Quirúrgicos:</td>
+    <td colspan="6" style="border:1px solid #000; height:60px;" t-esc="o.surgical_findings or ''"/>
+  </tr>
+
+  <!-- Procedimiento -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Procedimiento Quirúrgico:</td>
+    <td colspan="6" style="border:1px solid #000; height:80px;" t-esc="o.surgical_procedure_desc or ''"/>
+  </tr>
+</table>
+
+<!-- Pie de página -->
+<div style="text-align:right; font-size:10px; margin-top:2px;">
+  PROTOCOLO QUIRÚRGICO (1)
+</div>
+
+  <!-- ================= G. COMPLICACIONES DEL PROCEDIMIENTO QUIRÚRGICO ================= -->
+<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+  <!-- Título -->
+  <tr>
+    <td colspan="6" style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;">
+      G. COMPLICACIONES DEL PROCEDIMIENTO QUIRÚRGICO
+    </td>
+  </tr>
+
+  <!-- Caja grande superior -->
+  <tr>
+    <td colspan="6" style="border:1px solid #000; height:60px; vertical-align:top; padding:4px;" t-esc="o.complications or ''"/>
+  </tr>
+
+  <!-- Pérdida / Sangrado -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold; width:18%;">Pérdida Sanguínea total:</td>
+    <td style="border:1px solid #000; width:12%; text-align:center;" t-esc="o.blood_loss_total_ml or ''"/>
+    <td style="border:1px solid #000; width:4%;">ml</td>
+
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold; width:18%;">Sangrado aproximado:</td>
+    <td style="border:1px solid #000; width:12%; text-align:center;" t-esc="o.bleeding_approx_ml or ''"/>
+    <td style="border:1px solid #000; width:4%;">ml</td>
+  </tr>
+
+  <!-- Material Protésico -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Uso de Material Protésico:</td>
+    <td colspan="5" style="border:1px solid #000; padding:4px;">
+      <span style="display:inline-block; width:14px; height:14px; border:1px solid #000; text-align:center; line-height:14px; margin-right:4px;">
+        <t t-if="o.prosthetic_material_used">X</t>
+      </span> Sí
+      <span style="display:inline-block; width:20px;"></span>
+      <span style="display:inline-block; width:14px; height:14px; border:1px solid #000; text-align:center; line-height:14px; margin-right:4px;">
+        <t t-if="not o.prosthetic_material_used">X</t>
+      </span> No
+    </td>
+  </tr>
+
+  <!-- Descripción final -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold; padding:4px;">Descripción:</td>
+    <td colspan="5" style="border:1px solid #000; height:70px; vertical-align:top; padding:4px;" t-esc="o.description_pro or ''"/>
+  </tr>
+</table>
+
+<!-- ================= H. EXÁMENES HISTOPATOLÓGICOS ================= -->
+<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+  <!-- Título -->
+  <tr>
+    <td colspan="6" style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;">
+      H. EXÁMENES HISTOPATOLÓGICOS
+    </td>
+  </tr>
+
+  <!-- Transquirúrgico / Biopsia congelación -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold; width:15%;">Transquirúrgico:</td>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold; width:18%;">Biopsia por congelación:</td>
+
+    <!-- Casilla Sí -->
+    <td style="border:1px solid #000; width:5%; text-align:center;">
+      <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+        <t t-if="o.frozen_biopsy">X</t>
+      </span> Sí
+    </td>
+
+    <!-- Casilla No -->
+    <td style="border:1px solid #000; width:5%; text-align:center;">
+      <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+        <t t-if="not o.frozen_biopsy">X</t>
+      </span> No
+    </td>
+
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold; width:12%;">Resultado:</td>
+    <td style="border:1px solid #000;" t-esc="o.frozen_biopsy_result or ''"/>
+  </tr>
+
+  <!-- Histopatológico -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Histopatológico:</td>
+
+    <!-- Casilla Sí -->
+    <td style="border:1px solid #000; width:5%; text-align:center;">
+      <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+        <t t-if="o.histopathology">X</t>
+      </span> Sí
+    </td>
+
+    <!-- Casilla No -->
+    <td style="border:1px solid #000; width:5%; text-align:center;">
+      <span style="display:inline-block; width:12px; height:12px; border:1px solid #000; line-height:12px;">
+        <t t-if="not o.histopathology">X</t>
+      </span> No
+    </td>
+
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold; width:12%;">Muestra:</td>
+    <td colspan="2" style="border:1px solid #000;" t-esc="o.histopathology_sample or ''"/>
+  </tr>
+
+  <!-- Patólogo -->
+  <tr>
+    <td style="background-color:#ccffcc; border:1px solid #000; font-weight:bold;">Patólogo que reporta:</td>
+    <td colspan="5" style="border:1px solid #000;" t-esc="o.reporting_pathologist_id.display_name or ''"/>
+  </tr>
+</table>
+<!-- ================= I. DIAGRAMA DEL PROCEDIMIENTO ================= -->
+<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+  <!-- Título -->
+  <tr>
+    <td style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;">
+      I. DIAGRAMA DEL PROCEDIMIENTO
+    </td>
+  </tr>
+
+  <!-- Caja de diagrama -->
+  <tr>
+    <td style="border:1px solid #000; height:300px; text-align:center; vertical-align:middle;">
+      <t t-if="o.procedure_diagram">
+        <img t-att-src="'/web/image/%s/%s/procedure_diagram' % (o._name, o.id)"
+             style="max-width:100%; max-height:290px;"/>
+      </t>
+    </td>
+  </tr>
+</table>
+<!-- ================= J. DATOS DEL PROFESIONAL RESPONSABLE ================= -->
+<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:11px; margin-top:6px;">
+  <!-- Título -->
+  <tr>
+    <td colspan="4" style="background-color:#dcdcf9; padding:4px; font-size:13px; text-transform:uppercase; font-weight:bold; border:1px solid #000;">
+      J. DATOS DEL PROFESIONAL RESPONSABLE
+    </td>
+  </tr>
+
+  <!-- Encabezados -->
+  <tr style="background-color:#ccffcc; font-weight:bold; text-align:center;">
+    <td style="border:1px solid #000;">NOMBRE Y APELLIDOS</td>
+    <td style="border:1px solid #000;">ESPECIALIDAD</td>
+    <td style="border:1px solid #000;">FIRMA</td>
+    <td style="border:1px solid #000;">SELLO Y NÚMERO DE DOCUMENTO DE IDENTIFICACIÓN</td>
+  </tr>
+
+  <!-- Datos principales -->
+  <tr>
+    <td style="border:1px solid #000;" t-esc="o.responsible_id.display_name or ''"/>
+    <td style="border:1px solid #000;" t-esc="o.responsible_specialty or ''"/>
+    <td style="border:1px solid #000; text-align:center; vertical-align:middle;">
+      <t t-if="o.responsible_stamp">
+        <img t-att-src="'/web/image/%s/%s/responsible_stamp' % (o._name, o.id)" style="max-height:50px;"/>
+      </t>
+    </td>
+    <td style="border:1px solid #000;" t-esc="o.responsible_doc_number or ''"/>
+  </tr>
+
+  <!-- Filas adicionales vacías -->
+  <tr>
+    <td style="border:1px solid #000; height:32px;"></td>
+    <td style="border:1px solid #000;"></td>
+    <td style="border:1px solid #000;"></td>
+    <td style="border:1px solid #000;"></td>
+  </tr>
+  <tr>
+    <td style="border:1px solid #000; height:32px;"></td>
+    <td style="border:1px solid #000;"></td>
+    <td style="border:1px solid #000;"></td>
+    <td style="border:1px solid #000;"></td>
+  </tr>
+</table>
+
+<!-- Footer de la página -->
+<div style="font-size:10px; margin-top:4px; display:flex; justify-content:space-between;">
+  <span>SNS-MSP/HCU-form. 017/2021</span>
+  <span>PROTOCOLO QUIRÚRGICO (2)</span>
+</div>
+
+
+        </div>
+      </t>
+    </t>
+  </template>
+</odoo>

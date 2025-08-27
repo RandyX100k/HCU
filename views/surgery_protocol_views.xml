@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_hcu_surgery_protocol_list" model="ir.ui.view">
+        <field name="name">hcu.surgery.protocol.list</field>
+        <field name="model">hcu.surgery.protocol</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="surgery_date"/>
+                <field name="procedure_urgency"/>
+                <field name="anesthesia_type"/>
+                <field name="blood_loss_total_ml"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hcu_surgery_protocol_form" model="ir.ui.view">
+        <field name="name">hcu.surgery.protocol.form</field>
+        <field name="model">hcu.surgery.protocol</field>
+        <field name="arch" type="xml">
+            <form string="Protocolo Quirúrgico">
+                <header>
+                     <button name="%(action_report_hcu_surgery_protocol)d"
+                        string="Imprimir Protocolo"
+                        type="action"
+                        class="btn-primary"
+                        icon="fa-print"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="institution_id"/>
+                            <field name="health_center_id"/>
+                            <field name="unicodigo"/>
+                            <field name="file_number"/>
+                            <field name="unique_medical_record"/>
+                        </group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="age"/>
+                            <field name="age_condition"/>
+                            <field name="sex"/>
+                            <field name="surgery_date"/>
+                            <field name="datetime_start"/>
+                            <field name="datetime_end"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="B. Diagnósticos">
+                            <group>
+                                <group>
+                                    <field name="preop_diagnosis"/>
+                                    <field name="preop_cie"/>
+                                </group>
+                                <group>
+                                    <field name="postop_diagnosis"/>
+                                    <field name="postop_cie"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="C. Procedimiento">
+                            <group>
+                                <group>
+                                    <field name="procedure_urgency"/>
+                                    <field name="procedure_projected"/>
+                                    <field name="procedure_done"/>
+                                    <field name="procedure_other"/>
+                                </group>
+                                <group>
+                                    <field name="anesthesia_type"/>
+                                    <field name="sedation"/>
+                                    <field name="anesthesia_other"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="D. Equipo Quirúrgico">
+                            <group>
+                                <group string="Cirugía">
+                                    <field name="surgeon1_id"/>
+                                    <field name="surgeon2_id"/>
+                                    <field name="first_assistant_id"/>
+                                    <field name="second_assistant_id"/>
+                                    <field name="third_assistant_id"/>
+                                </group>
+                                <group string="Anestesia">
+                                    <field name="anesthesiologist_id"/>
+                                    <field name="anesthesia_assistant_id"/>
+                                    <field name="instrument_nurse_id"/>
+                                    <field name="circulating_nurse_id"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="F. Tiempos / Descripción">
+                            <group>
+                                <field name="dieresis"/>
+                                <field name="exposure_exploration"/>
+                                <field name="surgical_procedure_desc"/>
+                                <field name="surgical_findings"/>
+                            </group>
+                        </page>
+
+                        <page string="G. Complicaciones">
+                            <group>
+                                <field name="complications"/>
+                                <field name="blood_loss_total_ml"/>
+                                <field name="bleeding_approx_ml"/>
+                                <field name="prosthetic_material_used"/>
+                            </group>
+                        </page>
+
+                        <page string="H. Histopatología">
+                            <group>
+                                <group>
+                                    <field name="frozen_biopsy"/>
+                                    <field name="frozen_biopsy_result" invisible=" frozen_biopsy == False"/>
+                                </group>
+                                <group>
+                                    <field name="histopathology"/>
+                                    <field name="histopathology_sample" invisible="histopathology == False "/>
+                                </group>
+                                <group>
+                                    <field name="reporting_pathologist_id"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="I. Diagrama">
+                            <group>
+                                <field name="procedure_diagram" widget="image"/>
+                            </group>
+                        </page>
+
+                        <page string="J. Responsable">
+                            <group>
+                                <group>
+                                    <field name="responsible_id"/>
+                                    <field name="responsible_specialty"/>
+                                    <field name="responsible_doc_number"/>
+                                </group>
+                                <group>
+                                    <field name="responsible_stamp" widget="image"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="notes"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hcu_surgery_protocol" model="ir.actions.act_window">
+        <field name="name">Protocolos Quirúrgicos</field>
+        <field name="res_model">hcu.surgery.protocol</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>Cree y gestione protocolos quirúrgicos basados en el formulario SNS-MSP/HCU-form.017/2021.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hcu_root" name="HCU Protocolos" sequence="10"/>
+    <menuitem id="menu_hcu_surgery_protocol" name="Protocolos Quirúrgicos" parent="menu_hcu_root" action="action_hcu_surgery_protocol" sequence="10"/>
+</odoo>
