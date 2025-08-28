@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="access_inmunizaciones_action" model="ir.actions.act_window">
+        <field name="name">Inmunizaciones</field>
+        <field name="res_model">registro.inmunizacion</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

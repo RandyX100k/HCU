@@ -1,0 +1,108 @@
+<odoo>
+  <template id="report_inmunizaciones">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <div class="page" style="font-family: Arial, sans-serif; font-size: 11px;">
+
+           <!-- A. DATOS DEL ESTABLECIMIENTO - EMPRESA Y USUARIO -->
+          <h3 style="background-color: #dcdcf9; padding: 5px; font-size:14px; text-transform: uppercase; font-weight: bold;">
+            A. DATOS DEL ESTABLECIMIENTO - EMPRESA Y USUARIO
+          </h3>
+
+          <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+            <tr style="background-color: #ccffcc;">
+              <td style="border: 1px solid #000;">INSTITUCIÓN DEL SISTEMA O NOMBRE DE LA EMPRESA</td>
+              <td style="border: 1px solid #000;">RUC</td>
+              <td style="border: 1px solid #000;">CIIU</td>
+              <td style="border: 1px solid #000;">ESTABLECIMIENTO DE SALUD</td>
+              <td style="border: 1px solid #000;">NÚMERO DE HISTORIA CLÍNICA</td>
+              <td style="border: 1px solid #000;">NÚMERO DE ARCHIVO</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000;" t-esc="doc.institucion_name.name  or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.ruc or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.ciiu or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.establecimiento_salud.name or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.historia_clinica or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.numero_archivo or ''"/>
+            </tr>
+
+            <tr style="background-color: #ccffcc;">
+              <td style="border: 1px solid #000;">PRIMER APELLIDO</td>
+              <td style="border: 1px solid #000;">SEGUNDO APELLIDO</td>
+              <td style="border: 1px solid #000;">PRIMER NOMBRE</td>
+              <td style="border: 1px solid #000;">SEGUNDO NOMBRE</td>
+              <td style="border: 1px solid #000;">SEXO</td>
+              <td style="border: 1px solid #000;">CARGO / OCUPACION</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000;" t-esc="doc.primer_apellido or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.segundo_apellido or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.primer_nombre or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.segundo_nombre or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.sexo or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.puesto_trabajo_id.name or ''"/>
+            </tr>
+          </table>
+          <!-- B. INMUNIZACIONES -->
+          <h3 style="background-color: #dcdcf9; padding: 5px; font-size:14px; text-transform: uppercase; font-weight: bold; margin-top:12px;">
+            B. INMUNIZACIONES
+          </h3>
+
+          <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; font-size: 10.5px;">
+            <!-- Encabezado -->
+            <tr style="background-color: #ccffcc; text-align: center;">
+              <td style="border: 1px solid #000;">VACUNAS</td>
+              <td style="border: 1px solid #000;">DOSIS</td>
+              <td style="border: 1px solid #000;">FECHA</td>
+              <td style="border: 1px solid #000;">LOTE</td>
+              <td style="border: 1px solid #000;">ESQUEMA COMPLETO<br/>(marcar X)</td>
+              <td style="border: 1px solid #000;">NOMBRES COMPLETOS DEL<br/>RESPONSABLE DE LA VACUNACIÓN</td>
+              <td style="border: 1px solid #000;">ESTABLECIMIENTO DE SALUD<br/>DONDE SE COLOCÓ LA VACUNA</td>
+              <td style="border: 1px solid #000;">OBSERVACIONES</td>
+            </tr>
+
+            <!-- Registros -->
+            <t t-set="registros" t-value="doc.inmunizaciones_ids or []"/>
+            <t t-set="total" t-value="len(registros)"/>
+            <t t-foreach="registros" t-as="linea">
+              <tr>
+                <td style="border: 1px solid #000;" t-esc="linea.vacuna_id.vacuna_name or ''"/>
+                <td style="border: 1px solid #000;" t-esc="linea.dosis or ''"/>
+                <td style="border: 1px solid #000;" t-esc="linea.fecha.strftime('%d/%m/%Y') if linea.fecha else ''"/>
+                <td style="border: 1px solid #000;" t-esc="linea.lote or ''"/>
+                <td style="border: 1px solid #000; text-align: center;">
+                  <t t-if="linea.esquema_full">X</t>
+                </td>
+                <td style="border: 1px solid #000;" t-esc="linea.responsable_id.name_full if linea.responsable_id else ''"/>
+                <td style="border: 1px solid #000;" t-esc="linea.establecimiento_salud.name or ''"/>
+                <td style="border: 1px solid #000;" t-esc="linea.observaciones or ''"/>
+              </tr>
+            </t>
+
+            <!-- Filas vacías hasta completar 10 -->
+            <t t-set="faltantes" t-value="10 - total if total &lt; 10 else 0"/>
+            <t t-foreach="range(faltantes)" t-as="i">
+              <tr>
+                <td style="border: 1px solid #000;">&#160;</td>
+                <td style="border: 1px solid #000;">&#160;</td>
+                <td style="border: 1px solid #000;">&#160;</td>
+                <td style="border: 1px solid #000;">&#160;</td>
+                <td style="border: 1px solid #000;">&#160;</td>
+                <td style="border: 1px solid #000;">&#160;</td>
+                <td style="border: 1px solid #000;">&#160;</td>
+                <td style="border: 1px solid #000;">&#160;</td>
+              </tr>
+            </t>
+          </table>
+
+        <!-- Nota Final -->
+        <p style="margin-top: 10px; font-size: 10.5px; text-align: justify;">
+          La vacuna contra la Fiebre Amarilla es obligatoria para quien viva o se desplace en la Región Amazónica, su aplicación es hasta los 59 años de edad.
+        </p>
+
+        </div>
+      </t>
+    </t>
+  </template>
+</odoo>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_certificado_model_form" model="ir.ui.view">
+    <field name="name">certificado.model.form</field>
+    <field name="model">certificado.model</field>
+    <field name="arch" type="xml">
+        <form string="Certificado Médico">
+             <header>
+                  <button
+                    name="%(action_report_certificado_medico)d"
+                    type="action"
+                    string="Imprimir Evaluación"
+                    class="btn-primary"
+                    icon="fa-print"
+                  />
+                </header>
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1" class="text-primary"/>
+                    </h1>
+                </div>
+                <group>
+                    <field name="form_id"/>
+                    <field name="fecha_emision"/>
+                </group>
+
+                <notebook>
+
+                    <page string="Institución y Paciente">
+                        <group>
+                            <group>
+                                <field name="institucion_name"/>
+                                <field name="ruc"/>
+                                <field name="ciiu"/>
+                                <field name="establecimiento_salud"/>
+                                <field name="historia_clinica"/>
+                                <field name="numero_archivo"/>
+                            </group>
+                            <group>
+                                <field name="primer_apellido"/>
+                                <field name="segundo_apellido"/>
+                                <field name="primer_nombre"/>
+                                <field name="segundo_nombre"/>
+                                <field name="sexo"/>
+                                <field name="puesto_trabajo_id"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <page string="Evaluación">
+                        <field name="evaluacion_id">
+                            <list editable="bottom">
+                                <field name="ingreso"/>
+                                <field name="periodico"/>
+                                <field name="reintegro"/>
+                                <field name="retiro"/>
+                            </list>
+                        </field>
+                    </page>
+
+                    <page string="Aptitud Médica">
+                        <field name="aptitudes_ids">
+                            <list editable="bottom">
+                                <field name="apto"/>
+                                <field name="apto_observacion"/>
+                                <field name="apto_limitaciones"/>
+                                <field name="no_apto"/>
+                                <field name="observacion"/>
+                                <field name="limitacion"/>
+                            </list>
+                        </field>
+                    </page>
+
+                    <page string="Evaluación de Retiro">
+                        <field name="evaluacion_retiro_ids">
+                            <list editable="bottom">
+                                <field name="realizo_evaluacion"/>
+                                <field name="condicion_diagnostico"/>
+                                <field name="relacionada_trabajo"/>
+                            </list>
+                        </field>
+                    </page>
+
+                    <page string="Recomendaciones">
+                        <field name="recomendaciones_ids">
+                            <list editable="bottom">
+                                <field name="recomendacion"/>
+                            </list>
+                        </field>
+                    </page>
+
+                    <page string="Datos del Profesional">
+                        <group>
+                            <field name="fecha_datos"/>
+                            <field name="hora"/>
+                            <field name="profesional_id"/>
+                            <field name="codigo"/>
+                        </group>
+                        <group string="Firma del profesional">
+                            <field name="firma_sello" widget="signature"/>
+                        </group>
+                        <group string="Firma del usuario">
+                            <field name="firma_user" widget="signature"/>
+                        </group>
+                    </page>
+
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+</odoo>

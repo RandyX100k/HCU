@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Categoría principal -->
+    <record id="category_instituciones" model="ir.module.category">
+        <field name="name">Instituciones</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <!-- Subcategoría -->
+    <record id="subcategory_instituciones" model="ir.module.category">
+        <field name="name">Instituciones</field>
+        <field name="sequence">2</field>
+        <field name="parent_id" ref="category_instituciones"/>
+    </record>
+
+    <!-- Grupo de usuarios -->
+    <record id="group_user_instituciones" model="res.groups">
+        <field name="name">Instituciones Usuario</field>
+        <field name="category_id" ref="subcategory_instituciones"/>
+    </record>
+
+    <!-- Grupo de administradores -->
+    <record id="group_admin_instituciones" model="res.groups">
+        <field name="name">Instituciones Admin</field>
+        <field name="category_id" ref="subcategory_instituciones"/>
+    </record>
+</odoo>

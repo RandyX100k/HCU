@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="form_hc_instituciones" model="ir.ui.view">
+        <field name="name">Formulario Instituciones</field>
+        <field name="model">companys.hc</field>
+        <field name="arch" type="xml">
+            <form string="Institución">
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+
+                    <!-- Fila de cabecera -->
+                    <div class="o_row" style="margin-bottom: 25px;">
+                        <!-- Imagen a la izquierda -->
+                        <div class="o_col_3" style="text-align: center;">
+                            <field name="imagen" widget="image"
+                                   options="{'preview_image': 'imagen'}"
+                                   style="width: 130px; height: 130px; border-radius: 10px; border: 1px solid #ccc;"/>
+                        </div>
+
+                        <!-- Título y nombre a la derecha -->
+                        <div class="o_col_9" style="padding-left: 40px;">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nombre de la institución"/>
+                            </h1>
+                        </div>
+                    </div>
+
+                    <!-- Información general -->
+                    <group string="Información General" col="2" style="margin-bottom: 25px;">
+                        <field name="ruc"/>
+                        <field name="ciiu"/>
+                        <field name="establecimiento"/>
+                    </group>
+
+                    <!-- Identificación clínica -->
+                    <group string="Identificación Clínica" col="2">
+                        <field name="numero_historia_clinica"/>
+                        <field name="numero_archivo"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

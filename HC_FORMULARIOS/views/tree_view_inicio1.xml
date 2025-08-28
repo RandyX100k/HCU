@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- vistas/inicio_1_tree_view.xml -->
+<odoo>
+    <record id="view_inicio_1_tree" model="ir.ui.view">
+        <field name="name">inicio.1.tree</field>
+        <field name="model">inicio.1</field>
+        <field name="arch" type="xml">
+            <list string="Formularios 080" decoration-info="discapacidad == 'si'" decoration-muted="not paciente_id">
+                <field name="name"/>
+                <field name="primer_nombre"/>
+                <field name="primer_apellido"/>
+                <field name="sexo"/>
+                <field name="edad"/>
+                <field name="historia_clinica"/>
+                <field name="numero_archivo"/>
+                <field name="company_id"/>
+                <field name="fecha_ingreso"/>
+            </list>
+        </field>
+    </record>
+</odoo>

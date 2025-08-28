@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="action_report_evaluacion_ocupacional" model="ir.actions.report">
+    <field name="name">Evaluación Médica Ocupacional</field>
+    <field name="model">inicio.1</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">HC_FORMULARIOS.report_inicio_1_documento</field>
+    <field name="print_report_name">'Evaluacion_Ocupacional_' + (object.name or '')</field>
+    <field name="binding_model_id" ref="model_inicio_1"/>
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="HC_FORMULARIOS.paperformat_pago_a4_sin_margen"/>
+  </record>
+
+
+   <record id="action_report_inicio_2" model="ir.actions.report">
+      <field name="name">Evaluación Médica Ocupacional - Parte 2</field>
+      <field name="model">inicio.2</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">HC_FORMULARIOS.report_inicio_2_documento</field>
+      <field name="print_report_name">'Evaluacion_Ocupacional_Parte2_' + (object.name or '')</field>
+      <field name="binding_model_id" ref="model_inicio_2"/>
+      <field name="binding_type">report</field>
+  </record>
+
+
+    <record id="action_report_inicio_3" model="ir.actions.report">
+        <field name="name">Evaluación Médica Ocupacional - Parte 3</field>
+        <field name="model">inicio.3</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">HC_FORMULARIOS.report_inicio_3_documento</field>
+        <field name="print_report_name">'Evaluacion_Ocupacional_Parte3_' + (object.name or '')</field>
+        <field name="binding_model_id" ref="model_inicio_3"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <record id="action_report_certificado_medico" model="ir.actions.report">
+        <field name="name">Certificado Médico</field>
+        <field name="model">certificado.model</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">HC_FORMULARIOS.report_certificado_medico</field>
+        <field name="report_file">HC_FORMULARIOS.report_certificado_medico</field>
+        <field name="binding_model_id" ref="model_certificado_model"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <record id="action_report_certificado_desde_periodica" model="ir.actions.report">
+          <field name="name">Certificado Médico</field>
+          <field name="model">periodica.1</field>
+          <field name="report_type">qweb-pdf</field>
+          <field name="report_name">HC_FORMULARIOS.report_periodica_1_documento</field>
+          <field name="report_file">HC_FORMULARIOS.report_periodica_1_documento</field>
+          <field name="binding_model_id" ref="model_periodica_1"/>
+          <field name="binding_type">report</field>
+
+    </record>
+
+
+<!--    <record id="action_report_certificado_desde_periodica_2" model="ir.actions.report">-->
+<!--          <field name="name">Periodica 2</field>-->
+<!--          <field name="model">periodica.2</field>-->
+<!--          <field name="report_type">qweb-pdf</field>-->
+<!--          <field name="report_name">HC_FORMULARIOS.report_periodica_2</field>-->
+<!--          <field name="report_file">HC_FORMULARIOS.report_report_periodica_2</field>-->
+<!--          <field name="binding_model_id" ref="model_periodica_2"/>-->
+<!--          <field name="binding_type">report</field>-->
+
+<!--    </record>-->
+
+
+     <record id="action_report_reintegro" model="ir.actions.report">
+          <field name="name">Reintegro</field>
+          <field name="model">reintegro.form</field>
+          <field name="report_type">qweb-pdf</field>
+          <field name="report_name">HC_FORMULARIOS.report_reintegro</field>
+          <field name="report_file">HC_FORMULARIOS.report_reintegro</field>
+          <field name="binding_model_id" ref="model_reintegro_form"/>
+          <field name="binding_type">report</field>
+    </record>
+
+
+    <record id="action_report_retiro_1" model="ir.actions.report">
+        <field name="name">retiro1</field>
+        <field name="model">retiro.1</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">HC_FORMULARIOS.report_retiro_1</field>
+          <field name="report_file">HC_FORMULARIOS.report_retiro_1</field>
+         <field name="binding_model_id" ref="model_retiro_1"/>
+          <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_retiro_2" model="ir.actions.report">
+        <field name="name">retiro2</field>
+        <field name="model">retiro.2</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">HC_FORMULARIOS.report_retiro_2</field>
+        <field name="report_file">HC_FORMULARIOS.report_retiro_2</field>
+        <field name="binding_model_id" ref="model_retiro_2"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_inmunizaciones" model="ir.actions.report">
+        <field name="name">registro.inmunizacion</field>
+        <field name="model">registro.inmunizacion</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">HC_FORMULARIOS.report_inmunizaciones</field>
+        <field name="report_file">HC_FORMULARIOS.report_inmunizaciones</field>
+        <field name="binding_model_id" ref="model_registro_inmunizacion"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

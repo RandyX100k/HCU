@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template id="report_inicio_1_documento">
+<t t-call="web.html_container">
+
+
+<t t-foreach="docs" t-as="doc">
+<div class="page" style="font-size: 11px;">
+   <meta charset="utf-8"/>
+    <style>
+    @font-face {
+      font-family: 'DejaVu Sans';
+      src: url('/web/content/dejavu/DejaVuSans.ttf') format('truetype');
+    }
+
+    html, body {
+      font-family: 'DejaVu Sans', sans-serif;
+    }
+
+    h2, h3, h4 {
+      margin: 10px 0 6px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-bottom: 10px;
+      word-wrap: break-word;
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 4px;
+      text-align: center;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      font-size: 10.5px;
+    }
+
+    .section-title {
+      background-color: #DCDCF9;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .green {
+      background-color: #CCFFCC;
+    }
+
+    .rotate-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      white-space: nowrap;
+      font-size: 9px;
+    }
+
+    .no-border {
+      border: none !important;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .left {
+      text-align: left;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+
+    .break {
+      page-break-before: always;
+    }
+
+    tr {
+      page-break-inside: avoid;
+    }
+  </style>
+<table>
+  <tr><th colspan="18" class="section-title">A. DATOS DEL ESTABLECIMIENTO - EMPRESA Y USUARIO</th></tr>
+  <tr class="green">
+    <td colspan="4">INSTITUCIÓN DEL SISTEMA O NOMBRE DE LA EMPRESA</td>
+    <td colspan="2">RUC</td>
+    <td colspan="2">CIIU</td>
+    <td colspan="3">ESTABLECIMIENTO DE SALUD</td>
+    <td colspan="3">NÚMERO DE HISTORIA CLÍNICA</td>
+    <td colspan="4">NÚMERO DE ARCHIVO</td>
+  </tr>
+  <tr>
+    <td colspan="4"><t t-esc="doc.company_id.name or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.ruc or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.ciiu or '-'"/></td>
+    <td colspan="3"><t t-esc="doc.establecimiento_salud.name or '-'"/></td>
+    <td colspan="3"><t t-esc="doc.historia_clinica or '-'"/></td>
+    <td colspan="4"><t t-esc="doc.numero_archivo or '-'"/></td>
+  </tr>
+  <tr class="green">
+    <td colspan="2">PRIMER APELLIDO</td>
+    <td colspan="2">SEGUNDO APELLIDO</td>
+    <td colspan="2">PRIMER NOMBRE</td>
+    <td colspan="2">SEGUNDO NOMBRE</td>
+    <td>SEXO</td>
+    <td>EDAD</td>
+    <td colspan="5">RELIGIÓN</td>
+    <td>GRUPO SANGUÍNEO</td>
+    <td colspan="2">LATERALIDAD</td>
+  </tr>
+  <tr>
+    <td colspan="2"><t t-esc="doc.primer_apellido or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.segundo_apellido or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.primer_nombre or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.segundo_nombre or '-'"/></td>
+    <td><t t-esc="doc.sexo or '-'"/></td>
+    <td><t t-esc="doc.edad or '-'"/></td>
+    <td><span class="rotate-label">Católica</span></td>
+    <td><span class="rotate-label">Evangélica</span></td>
+    <td><span class="rotate-label">Testigos</span></td>
+    <td><span class="rotate-label">Mormón</span></td>
+    <td><span class="rotate-label">Otras</span></td>
+    <td><t t-esc="doc.grupo_sanguineo.name or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.lateralidad or '-'"/></td>
+  </tr>
+  <tr>
+    <td colspan="10"></td>
+    <td><t t-esc="'X' if doc.religion_id.name == 'Católica' else '-'"/></td>
+    <td><t t-esc="'X' if doc.religion_id.name == 'Evangélica' else '-'"/></td>
+    <td><t t-esc="'X' if doc.religion_id.name == 'Testigos de Jehová' else '-'"/></td>
+    <td><t t-esc="'X' if doc.religion_id.name == 'Mormón' else '-'"/></td>
+    <td><t t-esc="'X' if doc.religion_id.name == 'Otra' else '-'"/></td>
+    <td colspan="3"></td>
+  </tr>
+  <tr class="green">
+    <td colspan="2">INSTRUCCIÓN</td>
+    <td colspan="2">ESTADO CIVIL</td>
+    <td colspan="5">PROFESIÓN</td>
+    <td colspan="2">LUGAR DE NACIMIENTO</td>
+    <td colspan="2">FECHA DE NACIMIENTO</td>
+    <td>OCUPACIÓN</td>
+    <td colspan="2">TELÉFONO CELULAR</td>
+    <td colspan="2">DIRECCIÓN</td>
+  </tr>
+  <tr>
+    <td colspan="2"><t t-esc="doc.intruccion_id.name or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.estado_civil.name or '-'"/></td>
+    <td colspan="5"><t t-esc="doc.profesion_id.name or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.lugar_nacimiento or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.fecha_nacimieto or '-'"/></td>
+    <td><t t-esc="doc.ocupacion_id.name or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.tel or '-'"/></td>
+    <td colspan="2"><t t-esc="doc.direccion or '-'"/></td>
+  </tr>
+  <tr class="green">
+    <td colspan="6">ORIENTACIÓN SEXUAL</td>
+    <td colspan="6">IDENTIDAD DE GÉNERO</td>
+    <td colspan="2">DISCAPACIDAD</td>
+    <td colspan="4">FECHA DE INGRESO AL TRABAJO (aaaa-mm-dd)</td>
+  </tr>
+  <tr>
+    <td><span class="rotate-label">Lesbiana</span></td>
+    <td><span class="rotate-label">Gay</span></td>
+    <td><span class="rotate-label">Bisexual</span></td>
+    <td><span class="rotate-label">Heterosexual</span></td>
+    <td><span class="rotate-label">No sabe</span></td>
+    <td><span class="rotate-label">No responde</span></td>
+    <td><span class="rotate-label">Femenino</span></td>
+    <td><span class="rotate-label">Masculino</span></td>
+    <td><span class="rotate-label">Trans. F-M</span></td>
+    <td><span class="rotate-label">Trans. M-F</span></td>
+    <td><span class="rotate-label">No binario</span></td>
+    <td><span class="rotate-label">No responde</span></td>
+    <td>SI</td><td>NO</td>
+    <td colspan="4"><t t-esc="doc.fecha_ingreso or '-'"/></td>
+  </tr>
+  <tr>
+    <td><t t-esc="'X' if doc.orientacion_sexual.name == 'Lesbiana' else '-'"/></td>
+    <td><t t-esc="'X' if doc.orientacion_sexual.name == 'Gay' else '-'"/></td>
+    <td><t t-esc="'X' if doc.orientacion_sexual.name == 'Bisexual' else '-'"/></td>
+    <td><t t-esc="'X' if doc.orientacion_sexual.name == 'Heterosexual' else '-'"/></td>
+    <td><t t-esc="'X' if doc.orientacion_sexual.name == 'No sabe' else '-'"/></td>
+    <td><t t-esc="'X' if doc.orientacion_sexual.name == 'No responde' else '-'"/></td>
+    <td><t t-esc="'X' if doc.identidad_genero.name == 'Femenino' else '-'"/></td>
+    <td><t t-esc="'X' if doc.identidad_genero.name == 'Masculino' else '-'"/></td>
+    <td><t t-esc="'X' if doc.identidad_genero.name == 'Trans. F-M' else '-'"/></td>
+    <td><t t-esc="'X' if doc.identidad_genero.name == 'Trans. M-F' else '-'"/></td>
+    <td><t t-esc="'X' if doc.identidad_genero.name == 'No binario' else '-'"/></td>
+    <td><t t-esc="'X' if doc.identidad_genero.name == 'No responde' else '-'"/></td>
+    <td><t t-esc="'X' if doc.discapacidad else '-'"/></td>
+    <td><t t-esc="'X' if not doc.discapacidad else '-'"/></td>
+    <td colspan="2"><t t-esc="doc.tipo_discapacidad or 'NINGUNA'"/></td>
+    <td colspan="2">N/A</td>
+  </tr>
+  <tr class="green">
+    <td colspan="4">PUESTO DE TRABAJO (CIUO)</td>
+    <td colspan="3">ÁREA DE TRABAJO</td>
+    <td colspan="11">ACTIVIDADES RELEVANTES AL PUESTO DE TRABAJO A OCUPAR</td>
+  </tr>
+  <tr>
+    <td colspan="4"><t t-esc="doc.puesto_trabajo_id.name or '-'"/></td>
+    <td colspan="3"><t t-esc="doc.area_trabajo_id.name or '-'"/></td>
+    <td colspan="11"><t t-esc="doc.actividades_trabajo or '-'"/></td>
+  </tr>
+</table>
+
+
+
+
+
+  <!-- B. MOTIVO DE CONSULTA -->
+<h3 style="background-color: #dcdcf9; padding: 5px; font-size:14px; text-transform: uppercase; font-weight: bold; margin-top:5px;">B.MOTIVO DE CONSULTA</h3>
+<table style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 11px;">
+  <tr style="background-color: #ccffcc;">
+    <td style="border: 1px solid #000; padding: 4px;">EVALUACIÓN MÉDICA OCUPACIONAL DE INGRESO AL PUESTO DE TRABAJO</td>
+        <td style="border: 1px solid #000; padding: 4px;">EVALUACIÓN MÉDICA OCUPACIONAL DE INGRESO AL PUESTO DE TRABAJO</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #000; padding: 4px;" t-esc="doc.motivo_consulta or ''"/>
+    <td style="border: 1px solid #000; padding: 4px;" t-esc="doc.evaluacion_ocupacional or ''"/>
+  </tr>
+</table>
+ <!-- C. ANTECEDENTES PERSONALES -->
+<h3 style="background-color: #dcdcf9; padding: 5px; font-size:14px; text-transform: uppercase; font-weight: bold;">
+  C. ANTECEDENTES PERSONALES
+</h3>
+
+<!-- ANTECEDENTES CLÍNICOS Y QUIRÚRGICOS -->
+<h4 style="background-color: #ccffcc; padding: 5px; font-weight: bold; border: 1px solid #ccc; font-size:14px;">
+  ANTECEDENTES CLÍNICOS Y QUIRÚRGICOS
+</h4>
+<p style="font-size: 11px;">
+  APP CLÍNICOS: <t t-out="doc.antecedentes_clinicos or 'NO REFIERE'"/><br/>
+  APP QUIRÚRGICOS: <t t-out="doc.antecedentes_quirurgicos or 'NO REFIERE'"/><br/>
+  APP TRAUMATOLÓGICOS: <t t-out="doc.antecedentes_trauma or 'NO REFIERE'"/><br/>
+  HOSPITALIZACIÓN: <t t-out="doc.antecedentes_hospitalizacion or 'NO REFIERE'"/><br/>
+  ALERGIAS: <t t-out="doc.antecedentes_alergias or 'NO REFIERE'"/>
+</p>
+
+<!-- ANTECEDENTES GINECO OBSTÉTRICOS -->
+<h4 style="background-color: #ccffcc; padding: 5px; font-weight: bold; border: 1px solid #ccc; font-size:14px;">
+  ANTECEDENTES GINECO OBSTÉTRICOS
+</h4>
+<table class="table table-sm" style="width: 100%; font-size: 11px; border: 1px solid #ccc;">
+  <thead>
+    <tr style="background-color: #ccf2ff; text-align: center;">
+      <th>MENARQUÍA</th><th>CICLOS</th><th>FECHA DE ÚLTIMA MENSTRUACIÓN</th><th>GESTAS</th>
+      <th>PARTOS</th><th>CESÁREAS</th><th>ABORTOS</th>
+      <th>HIJOS VIVOS</th><th>MUERTOS</th><th>VIDA SEXUAL ACTIVA</th>
+      <th colspan="3">MÉTODO DE PLANIFICACIÓN FAMILIAR</th>
+    </tr>
+  </thead>
+  <tbody style="text-align: center;">
+    <tr>
+      <td><t t-out="doc.menarquia or '-'"/></td>
+      <td><t t-out="doc.ciclos or '-'"/></td>
+      <td><t t-out="doc.fecha_ultima_menstruacion or '-'"/></td>
+      <td><t t-out="doc.gestas or '0'"/></td>
+      <td><t t-out="doc.partos or '0'"/></td>
+      <td><t t-out="doc.cesareas or '0'"/></td>
+      <td><t t-out="doc.abortos or '0'"/></td>
+      <td><t t-out="doc.hijos_vivos or '0'"/></td>
+      <td><t t-out="doc.hijos_muertos or '0'"/></td>
+      <td>
+        <t t-if="doc.vida_sexual_activa">X</t>
+        <t t-if="not doc.vida_sexual_activa">-</t>
+      </td>
+      <td><t t-if="doc.usa_planificacion">SI</t><t t-if="not doc.usa_planificacion">NO</t></td>
+      <td colspan="2"><t t-out="doc.tipo_planificacion or '-'"/></td>
+    </tr>
+  </tbody>
+</table>
+<!-- EXÁMENES GINECOLÓGICOS -->
+<table class="table table-sm" style="width: 100%; font-size: 11px; margin-top: 5px; border: 1px solid #ccc;">
+  <thead>
+    <tr style="background-color: #ccf2ff; text-align: center;">
+      <th colspan="4">EXÁMENES REALIZADOS</th>
+      <th colspan="4">EXÁMENES REALIZADOS</th>
+    </tr>
+    <tr style="background-color: #f4f4f4; text-align: center;">
+      <th>EXAMEN</th><th>SI</th><th>NO</th><th>RESULTADO</th>
+      <th>EXAMEN</th><th>SI</th><th>NO</th><th>TIEMPO / RESULTADO</th>
+    </tr>
+  </thead>
+  <tbody style="text-align: center;">
+
+    <!-- PAPANICOLAOU / ECO MAMARIO -->
+    <tr>
+      <td>PAPANICOLAOU</td>
+      <td><t t-if="doc.papanicolaou == 'si'">X</t></td>
+      <td><t t-if="doc.papanicolaou == 'no'">X</t></td>
+      <td><t t-out="doc.resultado_papanicolaou or '-'"/></td>
+
+      <td>ECO MAMARIO</td>
+      <td><t t-if="doc.eco_mamario == 'si'">X</t></td>
+      <td><t t-if="doc.eco_mamario == 'no'">X</t></td>
+      <td><t t-out="(doc.eco_mamario_fecha or '-') + ' / ' + (doc.resultado_eco_mamario or '-')"/></td>
+    </tr>
+
+    <!-- COLPOSCOPIA / MAMOGRAFÍA -->
+    <tr>
+      <td>COLPOSCOPIA</td>
+      <td><t t-if="doc.colposcopia == 'si'">X</t></td>
+      <td><t t-if="doc.colposcopia == 'no'">X</t></td>
+      <td><t t-out="doc.resultado_colposcopia or '-'"/></td>
+
+      <td>MAMOGRAFÍA</td>
+      <td><t t-if="doc.mamografia == 'si'">X</t></td>
+      <td><t t-if="doc.mamografia == 'no'">X</t></td>
+      <td><t t-out="doc.resultado_mamografia or '-'"/></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- ANTECEDENTES REPRODUCTIVOS MASCULINOS -->
+<h4 style="background-color: #ccffcc; padding: 5px; font-weight: bold; border: 1px solid #ccc; font-size:14px">
+  ANTECEDENTES REPRODUCTIVOS MASCULINOS
+</h4>
+<table class="table table-sm" style="width: 100%; font-size: 11px; border: 1px solid #ccc;">
+  <thead style="text-align: center; background-color: #ccf2ff;">
+    <tr>
+      <th colspan="3">EXÁMENES REALIZADOS</th><th>RESULTADO</th>
+      <th>PLANIFICACIÓN</th><th>TIPO</th><th>HIJOS VIVOS</th><th>MUERTOS</th>
+    </tr>
+  </thead>
+  <tbody style="text-align: center;">
+    <tr>
+      <td colspan="3">ANTÍGENO PROSTÁTICO</td>
+      <td><t t-out="doc.resultado_antigeno or 'N/A'"/></td>
+      <td><t t-if="doc.usa_planificacion_m">SI</t><t t-if="not doc.usa_planificacion_m">NO</t></td>
+      <td><t t-out="doc.tipo_planificacion_m or 'N/A'"/></td>
+      <td><t t-out="doc.hijos_vivos_m or '0'"/></td>
+      <td><t t-out="doc.hijos_muertos_m or '0'"/></td>
+    </tr>
+    <tr>
+      <td colspan="3">ECO PROSTÁTICO</td>
+      <td><t t-out="doc.resultado_eco_prostatico or 'N/A'"/></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+<h4 style="background-color: #ccffcc; padding: 5px; font-weight: bold; border: 1px solid #ccc; font-size:14px">
+  HÁBITOS TÓXICOS Y ESTILO DE VIDA
+</h4>
+<table class="table table-sm" style="width: 100%; font-size: 11px; border: 1px solid #ccc;">
+  <thead style="background-color: #ccf2ff; text-align: center;">
+    <tr>
+      <th colspan="7">HÁBITOS TÓXICOS - CONSUMOS NOCIVOS</th>
+      <th colspan="5">ESTILO DE VIDA</th>
+    </tr>
+    <tr>
+      <th>CONSUMOS NOCIVOS</th>
+      <th>SI</th>
+      <th>NO</th>
+      <th>TIEMPO DE CONSUMO<br/>(meses)</th>
+      <th>CANTIDAD</th>
+      <th>EX CONSUMIDOR</th>
+      <th>TIEMPO DE ABSTINENCIA<br/>(meses)</th>
+      <th>ESTILO</th>
+      <th>SI</th>
+      <th>NO</th>
+      <th>¿CUÁL?</th>
+      <th>TIEMPO / CONSUMO</th>
+    </tr>
+  </thead>
+  <tbody style="text-align: center;">
+    <tr>
+      <td>TABACO</td>
+      <td><t t-if="doc.tabaco">X</t></td>
+      <td><t t-if="not doc.tabaco">X</t></td>
+      <td><t t-out="doc.tiempo_tabaco or '-'"/></td>
+      <td><t t-out="doc.cantidad_tabaco or '-'"/></td>
+      <td><t t-if="doc.ex_consumo_tabaco">X</t></td>
+      <td><t t-out="doc.tiempo_abs or '-'"/></td>
+      <td>ACTIVIDAD FÍSICA</td>
+      <td><t t-if="doc.actividad_fisica">X</t></td>
+      <td><t t-if="not doc.actividad_fisica">X</t></td>
+      <td><t t-out="doc.estilo_vida_cual or '-'"/></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>ALCOHOL</td>
+      <td><t t-if="doc.alcohol">X</t></td>
+      <td><t t-if="not doc.alcohol">X</t></td>
+      <td><t t-out="doc.tiempo_alcohol or '-'"/></td>
+      <td><t t-out="doc.cantidad_alcohol or '-'"/></td>
+      <td><t t-if="doc.ex_consumo_alcohol">X</t></td>
+      <td><t t-out="doc.tiempo_alcohol_abs or '-'"/></td>
+      <td>MEDICACIÓN HABITUAL</td>
+      <td><t t-if="doc.medicacion_habitual">X</t></td>
+      <td><t t-if="not doc.medicacion_habitual">X</t></td>
+      <td><t t-out="doc.medicacion_cual or '-'"/></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>
+        OTRAS DROGAS:<br/>
+        <t t-out="doc.otras_drogas_detalle or '-'"/>
+      </td>
+      <td><t t-if="doc.otras_drogas">X</t></td>
+      <td><t t-if="not doc.otras_drogas">X</t></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td colspan="5">-</td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+      <td colspan="5">-</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+<!-- SECCIÓN D. ANTECEDENTES DE TRABAJO -->
+
+<table>
+  <thead>
+      <tr><th colspan="11" class="section-title">D.ANTECEDENTES DE TRABAJO</th></tr>
+    <tr class="green">
+      <th colspan="3">ANTECEDENTES DE EMPLEOS ANTERIORES</th>
+      <th rowspan="2">TIEMPO DE<br/>TRABAJO<br/><span style="font-size:10px">(meses)</span></th>
+      <th colspan="6">RIESGO</th>
+      <th rowspan="2">OBSERVACIONES</th>
+    </tr>
+    <tr class="green">
+      <th>EMPRESA</th>
+      <th>PUESTO DE TRABAJO</th>
+      <th>ACTIVIDADES QUE DESEMPEÑABA</th>
+      <th><span class="rotate-label">FÍSICO</span></th>
+      <th><span class="rotate-label">MECÁNICO</span></th>
+      <th><span class="rotate-label">QUÍMICO</span></th>
+      <th><span class="rotate-label">BIOLÓGICO</span></th>
+      <th><span class="rotate-label">ERGONÓMICO</span></th>
+      <th><span class="rotate-label">PSICOSOCIAL</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <t t-foreach="doc.antecedente_trabajo_ids" t-as="linea">
+      <tr>
+        <td><t t-esc="linea.empresa.name"/></td>
+        <td><t t-esc="linea.puesto_trabajo.name"/></td>
+        <td><t t-esc="linea.actividades"/></td>
+        <td><t t-esc="linea.tiempo"/></td>
+        <td><t t-esc="'X' if linea.riesgo_fisico else '-'"/></td>
+        <td><t t-esc="'X' if linea.riesgo_mecanico else '-'"/></td>
+        <td><t t-esc="'X' if linea.riesgo_quimico else '-'"/></td>
+        <td><t t-esc="'X' if linea.riesgo_biologico else '-'"/></td>
+        <td><t t-esc="'X' if linea.riesgo_ergonomico else '-'"/></td>
+        <td><t t-esc="'X' if linea.riesgo_psicosocial else '-'"/></td>
+        <td><t t-esc="linea.observaciones or '—'"/></td>
+      </tr>
+    </t>
+  </tbody>
+</table>
+
+<!-- ACCIDENTES DE TRABAJO -->
+<h4 style="background-color:#ccffcc; padding:5px; margin-top:20px; font-size:14px;">ACCIDENTES DE TRABAJO (DESCRIPCIÓN)</h4>
+<table style="width:100%; border-collapse: collapse; font-size:12px;">
+  <tr>
+    <td style="padding: 4px;">FUE CALIFICADO POR EL INSTITUTO DE SEGURIDAD SOCIAL CORRESPONDIENTE:</td>
+    <td>SI <span style="border:1px solid #000; padding:3px 10px;"><t t-if="doc.calificado_accidente == 'si'">X</t></span></td>
+    <td>NO <span style="border:1px solid #000; padding:3px 10px;"><t t-if="doc.calificado_accidente == 'no'">X</t></span></td>
+    <td>ESPECIFICAR: <span style="border-bottom: 1px solid #000;"><t t-out="doc.especificacion_accidente or '-'"/></span></td>
+    <td>FECHA:
+      <span style="border:1px solid #000; padding:3px 6px;">
+        <t t-out="doc.fecha_accidente.strftime('%Y') if doc.fecha_accidente else '____'"/>
+      </span> /
+      <span style="border:1px solid #000; padding:3px 6px;">
+        <t t-out="doc.fecha_accidente.strftime('%m') if doc.fecha_accidente else '__'"/>
+      </span> /
+      <span style="border:1px solid #000; padding:3px 6px;">
+        <t t-out="doc.fecha_accidente.strftime('%d') if doc.fecha_accidente else '__'"/>
+      </span>
+    </td>
+  </tr>
+</table>
+<p style="padding-left:4px;">Observaciones: <t t-out="doc.descripcion_accidente or 'NO REFIERE'"/></p>
+
+<!-- ENFERMEDADES PROFESIONALES -->
+<h4 style="background-color:#ccffcc; padding:5px; margin-top:20px; font-size:14px;">ENFERMEDADES PROFESIONALES</h4>
+<table style="width:100%; border-collapse: collapse; font-size:12px;">
+  <tr>
+    <td style="padding: 4px;">FUE CALIFICADA POR EL INSTITUTO DE SEGURIDAD SOCIAL CORRESPONDIENTE:</td>
+    <td>SI <span style="border:1px solid #000; padding:3px 10px;"><t t-if="doc.calificado_enfermedad == 'si'">X</t></span></td>
+    <td>NO <span style="border:1px solid #000; padding:3px 10px;"><t t-if="doc.calificado_enfermedad == 'no'">X</t></span></td>
+    <td>ESPECIFICAR: <span style="border-bottom: 1px solid #000;"><t t-out="doc.especificacion_enfermedad or '-'"/></span></td>
+    <td>FECHA:
+      <span style="border:1px solid #000; padding:3px 6px;">
+        <t t-out="doc.fecha_enfermedad.strftime('%Y') if doc.fecha_enfermedad else '____'"/>
+      </span> /
+      <span style="border:1px solid #000; padding:3px 6px;">
+        <t t-out="doc.fecha_enfermedad.strftime('%m') if doc.fecha_enfermedad else '__'"/>
+      </span> /
+      <span style="border:1px solid #000; padding:3px 6px;">
+        <t t-out="doc.fecha_enfermedad.strftime('%d') if doc.fecha_enfermedad else '__'"/>
+      </span>
+    </td>
+  </tr>
+</table>
+
+<p style="padding-left:4px;">Observaciones: <t t-out="doc.descripcion_enfermedad or 'NO REFIERE'"/></p>
+  <!--inicio 2- 2-->
+  <!-- SECCIÓN E. ANTECEDENTES FAMILIARES -->
+        <h3 style="background-color: #dcdcf9; padding: 5px; font-size: 14px; text-transform: uppercase; font-weight: bold;">
+          E. ANTECEDENTES FAMILIARES (DETALLAR EL PARENTESCO)
+        </h3>
+        <p style="text-align: right; font-size: 10px; font-weight: bold;">
+          MARCAR Y DESCRIBIR ABAJO ANOTANDO EL NÚMERO
+        </p>
+
+        <table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+          <thead>
+            <tr style="background-color: #ccffcc;">
+              <th style="border: 1px solid #000;">1. ENFERMEDAD CARDIO-VASCULAR</th>
+              <th style="border: 1px solid #000;">2. ENFERMEDAD METABÓLICA</th>
+              <th style="border: 1px solid #000;">3. ENFERMEDAD NEUROLÓGICA</th>
+              <th style="border: 1px solid #000;">4. ENFERMEDAD ONCOLÓGICA</th>
+              <th style="border: 1px solid #000;">5. ENFERMEDAD INFECCIOSA</th>
+              <th style="border: 1px solid #000;">6. ENFERMEDAD HEREDITARIA / CONGÉNITA</th>
+              <th style="border: 1px solid #000;">7. DISCAPACIDADES</th>
+              <th style="border: 1px solid #000;">8. OTROS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="border: 1px solid #000;"><t t-out="doc.enfermedad_cardio and 'X' or '-'"/></td>
+              <td style="border: 1px solid #000;"><t t-out="doc.enfermedad_metabolidca and 'X' or '-'"/></td>
+              <td style="border: 1px solid #000;"><t t-out="doc.enfermedad_neurologica and 'X' or '-'"/></td>
+              <td style="border: 1px solid #000;"><t t-out="doc.enfermedad_oncologica and 'X' or '-'"/></td>
+              <td style="border: 1px solid #000;"><t t-out="doc.enfermedad_infecciosa and 'X' or '-'"/></td>
+              <td style="border: 1px solid #000;"><t t-out="doc.enfermedad_hereditaria and 'X' or '-'"/></td>
+              <td style="border: 1px solid #000;"><t t-out="doc.discapacidad_ and 'X' or '-'"/></td>
+              <td style="border: 1px solid #000;"><t t-out="doc.otra_enfermedad and 'X' or '-'"/></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Descripción -->
+        <p style="border: 1px solid #000; padding: 5px; margin-top: 4px; font-size: 11px;">
+          <t t-out="doc.refiere or 'NO REFIERE'"/>
+        </p>
+<style>
+   .factores-table {
+          border-collapse: collapse;
+          width: 100%;
+          font-size: 11px;
+          font-family: Arial, sans-serif;
+          table-layout: auto;
+        }
+        .factores-table th,
+        .factores-table td {
+          border: 1px solid #000;
+          padding: 4px;
+          text-align: center;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+
+        .factores-rotate-label {
+          writing-mode: vertical-rl;
+          transform: rotate(180deg);
+          white-space: nowrap;
+          font-weight: normal;
+        }
+        th.factores-col-puesto, td.factores-col-puesto,
+        th.factores-col-actividad, td.factores-col-actividad {
+          width: 250px !important;
+          min-width: 250px !important;
+          max-width: 250px !important;
+        }
+        .factores-col-riesgo {
+          min-width: 28px;
+          max-width: 28px;
+          width: 28px;
+        }
+</style>
+
+<t t-if="doc.riesgos_ids">
+  <table class="factores-table">
+    <tr>
+      <th colspan="33" class="section-title">F. FACTORES DE RIESGOS DEL PUESTO DE TRABAJO ACTUAL</th>
+    </tr>
+    <tr class="green">
+      <th rowspan="2" class="factores-col-puesto">PUESTO DE TRABAJO / ÁREA</th>
+      <th rowspan="2" class="factores-col-actividad">ACTIVIDADES</th>
+      <th colspan="10">FÍSICO</th>
+      <th colspan="12">MECÁNICO</th>
+      <th colspan="9">QUÍMICO</th>
+    </tr>
+    <tr class="green">
+      <t t-set="riesgos" t-value="[
+        'Temperaturas altas','Temperaturas bajas','Radiación ionizante','Radiación no ionizante','Ruido',
+        'Vibración','Iluminación','Ventilación','Frío eléctrico','Otros',
+        'Contacto entre máquinas','Atrapamiento entre superficies','Atrapamiento entre objetos','Caída de objetos',
+        'Caídas mismo nivel','Caídas diferente nivel','Contacto eléctrico','Contacto con superficies de trabajo',
+        'Proyección de partículas / fragmentos','Pinchazos','Atropellamiento por vehículos','Choque / colisión vehicular',
+        'Sólidos','Polvos','Humos','Líquidos','Vapores','Aerosoles','Neblinas','Gases','Otros'
+      ]"/>
+      <t t-foreach="riesgos" t-as="riesgo">
+        <th class="factores-col-riesgo">
+          <div class="factores-rotate-label">
+            <div><t t-esc="riesgo"/></div>
+          </div>
+        </th>
+      </t>
+    </tr>
+    <t t-set="puestos" t-value="set([r.puesto_id for r in doc.riesgos_ids if r.puesto_id])"/>
+    <t t-foreach="puestos" t-as="puesto">
+      <tr>
+        <td class="factores-col-puesto"><t t-esc="puesto.name"/></td>
+        <td class="factores-col-actividad">
+          <t t-set="actividad" t-value="(doc.riesgos_ids.filtered(lambda r: r.puesto_id.id == puesto.id))[0].actividades"/>
+          <t t-esc="actividad or ''"/>
+        </td>
+        <t t-set="riesgos_puesto" t-value="doc.riesgos_ids.filtered(lambda r: r.puesto_id.id == puesto.id)"/>
+        <t t-foreach="riesgos" t-as="tipo">
+          <td class="factores-col-riesgo">
+            <t t-set="tiene_riesgo" t-value="any(tipo in r.riesgo.mapped('name') for r in riesgos_puesto)"/>
+            <t t-esc="'X' if tiene_riesgo else '-'"/>
+          </td>
+        </t>
+      </tr>
+    </t>
+  </table>
+</t>
+
+
+<br/>
+<style>
+
+  .factores-col-medidas {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: left;
+    vertical-align: top;
+  }
+</style>
+
+<!-- PARTE 2 -->
+<t t-if="doc.riesgos_ids_2">
+  <table class="factores-table">
+    <thead>
+      <tr class="green">
+        <th rowspan="2" class="factores-col-puesto">PUESTO DE TRABAJO / ÁREA</th>
+        <th rowspan="2" class="factores-col-actividad">ACTIVIDADES</th>
+        <th colspan="7">BIOLÓGICO</th>
+        <th colspan="5">ERGONÓMICO</th>
+        <th colspan="8">PSICOSOCIAL</th>
+        <th rowspan="2" class="factores-col-medidas">MEDIDAS PREVENTIVAS</th>
+      </tr>
+      <tr class="green">
+        <th class="factores-rotate-label">Virus</th><th class="factores-rotate-label">Hongos</th><th class="factores-rotate-label">Bacterias</th><th class="factores-rotate-label">Parásitos</th><th class="factores-rotate-label">Exposición a vectores</th><th class="factores-rotate-label">Contacto animales/salvajes</th><th class="factores-rotate-label">Otros</th>
+        <th class="factores-rotate-label">Manejo manual de cargas</th><th class="factores-rotate-label">Movimientos repetitivos</th><th class="factores-rotate-label">Posturas forzadas</th><th class="factores-rotate-label">Trabajo con PVD</th><th class="factores-rotate-label">Otros</th>
+        <th class="factores-rotate-label">Monotonía del trabajo</th><th class="factores-rotate-label">Sobrecarga laboral</th><th class="factores-rotate-label">Multiplicidad de tareas</th><th class="factores-rotate-label">Alta responsabilidad decisiones</th><th class="factores-rotate-label">Autonomía limitada</th><th class="factores-rotate-label">Conflicto de rol</th><th class="factores-rotate-label">Falta claridad funciones</th><th class="factores-rotate-label">Otros</th>
+      </tr>
+    </thead>
+    <tbody>
+      <t t-set="tipos_biologicos" t-value="['Virus','Hongos','Bacterias','Parásitos','Exposición a vectores','Contacto animales/salvajes','Otros']"/>
+      <t t-set="tipos_ergonomicos" t-value="['Manejo manual de cargas','Movimientos repetitivos','Posturas forzadas','Trabajo con PVD','Otros']"/>
+      <t t-set="tipos_psicosociales" t-value="['Monotonía del trabajo','Sobrecarga laboral','Multiplicidad de tareas','Alta responsabilidad decisiones','Autonomía limitada','Conflicto de rol','Falta claridad funciones','Otros']"/>
+      <t t-set="puestos2" t-value="set([r.puesto_id for r in doc.riesgos_ids_2 if r.puesto_id])"/>
+      <t t-foreach="puestos2" t-as="puesto">
+        <tr>
+          <td class="factores-col-puesto"><t t-esc="puesto.name"/></td>
+          <td class="factores-col-actividad">
+            <t t-set="actividad" t-value="(doc.riesgos_ids_2.filtered(lambda r: r.puesto_id.id == puesto.id))[0].actividades"/>
+            <t t-esc="actividad or ''"/>
+          </td>
+          <t t-foreach="tipos_biologicos" t-as="tipo">
+            <td class="factores-col-riesgo">
+             <t t-set="riesgos" t-value="doc.riesgos_ids_2.filtered(lambda x: x.puesto_id.id == puesto.id and tipo in x.riesgo.mapped('name') and x.typo_riesgos.name == 'BIOLÓGICO')"/>
+              <t t-esc="'X' if riesgos and len(riesgos) > 0 else '-'"/>
+
+            </td>
+          </t>
+          <t t-foreach="tipos_ergonomicos" t-as="tipo">
+            <td class="factores-col-riesgo">
+             <t t-set="riesgos" t-value="doc.riesgos_ids_2.filtered(lambda x: x.puesto_id.id == puesto.id and tipo in x.riesgo.mapped('name') and x.typo_riesgos.name == 'ERGONOMICO')"/>
+            <t t-esc="'X' if riesgos and len(riesgos) > 0 else '-'"/>
+
+            </td>
+          </t>
+          <t t-foreach="tipos_psicosociales" t-as="tipo">
+            <td class="factores-col-riesgo">
+              <t t-set="riesgos" t-value="doc.riesgos_ids_2.filtered(lambda x: x.puesto_id.id == puesto.id and tipo in x.riesgo.mapped('name') and x.typo_riesgos.name == 'PSICOSOCIAL')"/>
+            <t t-esc="'X' if riesgos and len(riesgos) > 0 else '-'"/>
+
+
+            </td>
+          </t>
+          <td class="factores-col-medidas">
+            <t t-set="prev" t-value="(doc.riesgos_ids_2.filtered(lambda r: r.puesto_id.id == puesto.id))[0].medidas_preventiva"/>
+            <t t-esc="prev or ''"/>
+          </td>
+        </tr>
+      </t>
+    </tbody>
+  </table>
+</t>
+
+  <h3 style="background-color: #c9c9f9; padding: 6px; font-size: 13px; font-weight: bold; text-transform: uppercase; border: 1px solid #000; margin-top:10px;">
+  G. ACTIVIDADES EXTRA LABORALES
+</h3>
+
+<table style="width: 100%; border: 1px solid #000; border-collapse: collapse; font-size: 11px;">
+  <t t-if="doc.actividades_extras_laborales">
+    <t t-foreach="doc.actividades_extras_laborales" t-as="actividad">
+      <tr>
+        <td style="border: 1px solid #000; padding: 8px;">
+          <t t-esc="actividad.actividad or ''"/>
+        </td>
+      </tr>
+    </t>
+  </t>
+  <t t-if="not doc.actividades_extras_laborales">
+    <tr>
+      <td style="border: 1px solid #000; padding: 8px;">NO REFIERE</td>
+    </tr>
+  </t>
+  <tr>
+    <td style="border: 1px solid #000; padding: 20px; text-align: center;">
+      ______________________
+    </td>
+  </tr>
+</table>
+<h3 style="background-color: #c9c9f9; padding: 6px; font-size: 13px; font-weight: bold; text-transform: uppercase; border: 1px solid #000;">
+  H. ENFERMEDAD ACTUAL
+</h3>
+
+<table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+  <tr>
+    <td style="border: 1px solid #000; padding: 8px;">
+      <t t-esc="doc.enfermedad_actual or 'PACIENTE ACUDE A VALORACIÓN MÉDICA OCUPACIONAL AL MOMENTO ASINTOMÁTICO EN CONDICIÓN ESTABLE, NIEGA PATOLOGÍAS EN LOS ÚLTIMOS TRES MESES'" />
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #000; padding: 20px; text-align: center;">
+      ______________________
+    </td>
+  </tr>
+</table>
+<style>
+
+
+  .header-main {
+    background-color: #dcdcf9;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 6px;
+  }
+  .header-right {
+    background-color: #dcdcf9;
+    text-align: right;
+    font-size: 10px;
+    padding-right: 6px;
+  }
+  .sub-header {
+    background-color: #ccffff;
+    font-weight: bold;
+  }
+  .linea {
+    border: none;
+    border-bottom: 1px solid #000;
+    margin: 10px 0;
+  }
+  .no-border td {
+    border: none;
+  }
+</style>
+
+<t t-if="doc.organos_sistemas_ids">
+  <table style="margin-top:10px;">
+    <tr>
+      <th colspan="6" class="header-main">I. REVISIÓN ACTUAL DE ÓRGANOS Y SISTEMAS</th>
+      <th colspan="4" class="header-right">EN CASO DE EXISTIR PATOLOGÍA MARCAR CON “X” Y DESCRIBIR ABAJO COLOCANDO EL NUMERAL</th>
+    </tr>
+    <tr class="sub-header">
+      <td>1. PIEL - ANEXOS</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'PIEL - ANEXOS' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+      <td>3. RESPIRATORIO</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'RESPIRATORIO' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+      <td>5. DIGESTIVO</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'DIGESTIVO' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+      <td>7. MÚSCULO ESQUELÉTICO</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'MÚSCULO ESQUELÉTICO' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+      <td>9. HEMO LINFÁTICO</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'HEMO LINFÁTICO' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+    </tr>
+    <tr class="sub-header">
+      <td>2. ÓRGANOS DE LOS SENTIDOS</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'ÓRGANOS DE LOS SENTIDOS' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+      <td>4. CARDIO-VASCULAR</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'CARDIO-VASCULAR' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+      <td>6. GENITO - URINARIO</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'GENITO - URINARIO' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+      <td>8. ENDOCRINO</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'ENDOCRINO' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+      <td>10. NERVIOSO</td>
+      <td><t t-esc="'X' if any(r.organo_sistema_.name_organo_sistema == 'NERVIOSO' and r.patologia for r in doc.organos_sistemas_ids) else '-'"/></td>
+    </tr>
+  </table>
+
+  <br/><br/>
+  <div><strong><t t-esc="doc.observacion_organos or 'SIN PATOLOGÍA APARENTE'"/></strong></div>
+
+ <table class="no-border">
+  <tr>
+    <td style="border-bottom: 1px solid #000;">&#8203;</td>
+    <td style="border-bottom: 1px solid #000;">&#8203;</td>
+  </tr>
+  <tr>
+    <td style="border-bottom: 1px solid #000;">&#8203;</td>
+    <td style="border-bottom: 1px solid #000;">&#8203;</td>
+  </tr>
+</table>
+
+</t>
+
+
+<t t-set="imc_rojo" t-value="float(doc.indice_masa_corporal or 0) > 25"/>
+<div style="margin-top: 20px;">
+    <table style="width:100%; border-collapse:collapse; font-size:12px;">
+        <thead>
+            <tr style="background-color:#d7d3f0;">
+                <th colspan="9" style="text-align:left; font-weight:bold; padding:4px;">
+                    J. CONSTANTES VITALES Y ANTROPOMETRÍA
+                </th>
+            </tr>
+            <tr style="background-color:#d9fdd3; text-align:center;">
+                <th style="border:1px solid #000;">PRESIÓN ARTERIAL<br/>(mmHg)</th>
+                <th style="border:1px solid #000;">TEMPERATURA<br/>(°C)</th>
+                <th style="border:1px solid #000;">FRECUENCIA CARDIACA<br/>(Lat/min)</th>
+                <th style="border:1px solid #000;">SATURACIÓN DE OXÍGENO<br/>(O2%)</th>
+                <th style="border:1px solid #000;">FRECUENCIA RESPIRATORIA<br/>(fr/min)</th>
+                <th style="border:1px solid #000;">PESO<br/>(Kg)</th>
+                <th style="border:1px solid #000;">TALLA<br/>(cm)</th>
+                <th style="border:1px solid #000;">ÍNDICE DE MASA CORPORAL<br/>(kg/m²)</th>
+                <th style="border:1px solid #000;">PERÍMETRO ABDOMINAL<br/>(cm)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align:center;">
+                <td style="border:1px solid #000;"><t t-esc="doc.presion_arterial"/></td>
+                <td style="border:1px solid #000;"><t t-esc="doc.temperatura"/></td>
+                <td style="border:1px solid #000;"><t t-esc="doc.frecuencia_cardiaca"/></td>
+                <td style="border:1px solid #000;"><t t-esc="doc.saturacion_oxigeno"/></td>
+                <td style="border:1px solid #000;"><t t-esc="doc.frecuencia_respiratoria"/></td>
+                <td style="border:1px solid #000;"><t t-esc="doc.peso"/></td>
+                <td style="border:1px solid #000;"><t t-esc="doc.talla"/></td>
+                <td style="border:1px solid #000; color: red;" t-if="imc_rojo">
+                    <t t-esc="doc.indice_masa_corporal"/>
+                </td>
+                <td style="border:1px solid #000;" t-if="not imc_rojo">
+                    <t t-esc="doc.indice_masa_corporal"/>
+                </td>
+                <td style="border:1px solid #000;"><t t-esc="doc.perimetro_abdominal"/></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--inicio 3-3-->
+         <!-- Encabezado + CSS -->
+<h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; text-transform: uppercase; border: 1px solid #000;">
+  K. EXAMEN FÍSICO REGIONAL
+</h3>
+
+ <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      table-layout: fixed;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 5px;
+      font-size: 12px;
+      vertical-align: middle;
+      text-align: center;
+    }
+    .header {
+      background-color: #cfe7cd;
+      font-weight: bold;
+      text-align: center;
+    }
+    .region {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-align: center;
+      background-color: #ffffff;
+      font-weight: bold;
+      width: 20px;
+      padding-top: 10px;
+    }
+    .subregion {
+      background-color: #d8f9ff;
+      text-align: left;
+    }
+    .respuesta {
+      background-color: #ffffff;
+      font-size: 14px;
+    }
+  </style>
+ <table>
+  <tr>
+    <th class="header">Región</th><th class="header">Subregión</th><th class="header">Resp.</th>
+    <th class="header">Región</th><th class="header">Subregión</th><th class="header">Resp.</th>
+    <th class="header">Región</th><th class="header">Subregión</th><th class="header">Resp.</th>
+    <th class="header">Región</th><th class="header">Subregión</th><th class="header">Resp.</th>
+    <th class="header">Región</th><th class="header">Subregión</th><th class="header">Resp.</th>
+  </tr>
+
+  <!-- Fila 1 -->
+  <tr>
+    <td class="region" rowspan="3">1. Piel</td>
+    <td class="subregion">a. Cicatrices</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '1. Piel' and r.type_subregion.name == 'a. Cicatrices' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+
+    <td class="region" rowspan="3">3. Oído</td>
+    <td class="subregion">a. C. auditivo externo</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '3. Oído' and r.type_subregion.name == 'a. C. auditivo externo' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+
+    <td class="region" rowspan="4">5. Nariz</td>
+    <td class="subregion">a. Tabique</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '5. Nariz' and r.type_subregion.name == 'a. Tabique' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+
+    <td class="region" rowspan="2">8. Tórax</td>
+    <td class="subregion">a. Pulmones</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '8. Tórax' and r.type_subregion.name == 'a. Pulmones' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+
+    <td class="region" rowspan="2">11. Pelvis</td>
+    <td class="subregion">a. Pelvis</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '11. Pelvis' and r.type_subregion.name == 'a. Pelvis' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+
+  <!-- Fila 2 -->
+  <tr>
+    <td class="subregion">b. Tatuajes</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '1. Piel' and r.type_subregion.name == 'b. Tatuajes' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Pabellón</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '3. Oído' and r.type_subregion.name == 'b. Pabellón' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Cornetes</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '5. Nariz' and r.type_subregion.name == 'b. Cornetes' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Parrilla Costal</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '8. Tórax' and r.type_subregion.name == 'b. Parrilla Costal' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Genitales</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '11. Pelvis' and r.type_subregion.name == 'b. Genitales' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+
+  <!-- Fila 3 -->
+  <tr>
+    <td class="subregion">c. Piel y Faneras</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '1. Piel' and r.type_subregion.name == 'c. Piel y Faneras' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">c. Tímpanos</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '3. Oído' and r.type_subregion.name == 'c. Tímpanos' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">c. Mucosas</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '5. Nariz' and r.type_subregion.name == 'c. Mucosas' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="region" rowspan="2">9. Abdomen</td>
+    <td class="subregion">a. Vísceras</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '9. Abdomen' and r.type_subregion.name == 'a. Vísceras' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="region" rowspan="3">12. Extremidades</td>
+    <td class="subregion">a. Vascular</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '12. Extremidades' and r.type_subregion.name == 'a. Vascular' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+
+   <!-- Fila 4 -->
+  <tr>
+    <td class="region" rowspan="5">2. Ojos</td>
+    <td class="subregion">a. Párpados</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '2. Ojos' and r.type_subregion.name == 'a. Párpados' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="region" rowspan="5">4. Oro faringe</td>
+    <td class="subregion">a. Labios</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '4. Oro faringe' and r.type_subregion.name == 'a. Labios' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">d. Senos paranasales</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '5. Nariz' and r.type_subregion.name == 'd. Senos paranasales' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Pared abdominal</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '9. Abdomen' and r.type_subregion.name == 'b. Pared abdominal' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Miembros superiores</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '12. Extremidades' and r.type_subregion.name == 'b. Miembros superiores' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+
+  <!-- Fila 5 -->
+  <tr>
+    <td class="subregion">b. Conjuntivas</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '2. Ojos' and r.type_subregion.name == 'b. Conjuntivas' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Lengua</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '4. Oro faringe' and r.type_subregion.name == 'b. Lengua' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="region" rowspan="2">6. Cuello</td>
+    <td class="subregion">a. Tiroides / masas</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '6. Cuello' and r.type_subregion.name == 'a. Tiroides / masas' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="region" rowspan="3">10. Columna</td>
+    <td class="subregion">a. Flexibilidad</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '10. Columna' and r.type_subregion.name == 'a. Flexibilidad' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">c. Miembros inferiores</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '12. Extremidades' and r.type_subregion.name == 'c. Miembros inferiores' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+
+  <!-- Fila 6 -->
+  <tr>
+    <td class="subregion">c. Pupilas</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '2. Ojos' and r.type_subregion.name == 'c. Pupilas' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">c. Faringe</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '4. Oro faringe' and r.type_subregion.name == 'c. Faringe' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Movilidad</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '10. Columna' and r.type_subregion.name == 'b. Movilidad' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Desviación</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '10. Columna' and r.type_subregion.name == 'b. Desviación' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="region" rowspan="4">13. Neurológico</td>
+    <td class="subregion">a. Fuerza</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '13. Neurológico' and r.type_subregion.name == 'a. Fuerza' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+    <!-- Filas completadas previamente -->
+  <!-- Fila 7 -->
+  <tr>
+    <td class="subregion">d. Córnea</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '2. Ojos' and r.type_subregion.name == 'd. Córnea' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">d. Amígdalas</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '4. Oro faringe' and r.type_subregion.name == 'd. Amígdalas' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="region" rowspan="2">7. Tórax</td>
+    <td class="subregion">a. Mamas</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '7. Tórax' and r.type_subregion.name == 'a. Mamas' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">c. Dolor</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '10. Columna' and r.type_subregion.name == 'c. Dolor' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Sensibilidad</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '13. Neurológico' and r.type_subregion.name == 'b. Sensibilidad' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+
+  <!-- Fila 8 -->
+  <tr>
+    <td class="subregion">e. Motilidad</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '2. Ojos' and r.type_subregion.name == 'e. Motilidad' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">e. Dentadura</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '4. Oro faringe' and r.type_subregion.name == 'e. Dentadura' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td class="subregion">b. Corazón</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '7. Tórax' and r.type_subregion.name == 'b. Corazón' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+    <td colspan="3"></td>
+    <td class="subregion">c. Marcha</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '13. Neurológico' and r.type_subregion.name == 'c. Marcha' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+
+  <!-- Fila 9 -->
+  <tr>
+    <td colspan="12"></td>
+    <td class="subregion">d. Reflejos</td>
+    <td class="respuesta"><t t-esc="'X' if any(r.type_region.name == '13. Neurológico' and r.type_subregion.name == 'd. Reflejos' and r.patologia for r in doc.regiones_ids) else '-'"/></td>
+  </tr>
+       <tr>
+      <td colspan="15" style="text-align: left; padding: 10px; font-weight: bold;">
+        SI EXISTE EVIDENCIA DE PATOLOGÍA MARCAR CON "X" Y DESCRIBIR EN LA SIGUIENTE SECCIÓN COLOCANDO EL NUMERAL
+      </td>
+    </tr>
+   <tr>
+     <td colspan="15" style="text-align: left; padding: 10px">
+      <strong>Observaciones:</strong>
+      <ul style="margin: 0; padding-left: 20px">
+        <t t-foreach="doc.observaciones_examen_regional" t-as="obs">
+          <li><t t-esc="obs.observacion"/></li>
+        </t>
+      </ul>
+    </td>
+  </tr>
+
+</table>
+
+
+            <h4 style="background-color: #ccffcc; padding: 6px; font-size: 12px; font-weight: bold; border: 1px solid #000; margin-top: 20px;">
+              COLUMNA Y EXTREMIDADES
+            </h4>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+              <thead>
+                <tr style="background-color: #ccffcc;">
+                  <th style="border: 1px solid #000;">SIGNO</th>
+                  <th style="border: 1px solid #000;">SI:</th>
+                  <th style="border: 1px solid #000;">–</th>
+                  <th style="border: 1px solid #000;">NO:</th>
+                  <th style="border: 1px solid #000;">–</th>
+                  <th style="border: 1px solid #000;">DESCRIPCIÓN DE LA PATOLOGÍA:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="doc.columna_extremidades_ids" t-as="linea">
+                  <tr style="background-color: #e6faff;">
+                    <td style="border: 1px solid #000;"><t t-esc="linea.signos_ids.name or ''"/></td>
+
+                    <!-- SI -->
+                    <td style="border: 1px solid #000;">
+                      <t t-if="linea.patologia">X</t>
+                      <t t-if="not linea.patologia">–</t>
+                    </td>
+                    <td style="border: 1px solid #000;">–</td>
+
+                    <!-- NO -->
+                    <td style="border: 1px solid #000;">
+                      <t t-if="not linea.patologia">X</t>
+                      <t t-if="linea.patologia">–</t>
+                    </td>
+                    <td style="border: 1px solid #000;">–</td>
+
+                    <!-- Descripción -->
+                    <td style="border: 1px solid #000; text-align: left;">
+                      <t t-esc="linea.descripcion or ''"/>
+                    </td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+            <h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; text-transform: uppercase; border: 1px solid #000; margin-top: 8px;">
+              L. RESULTADOS DE EXÁMENES GENERALES Y ESPECÍFICOS DE ACUERDO AL RIESGO Y PUESTO DE TRABAJO (IMAGEN, LABORATORIO Y OTROS)
+            </h3>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+              <thead>
+                <tr style="background-color: #ccffcc;">
+                  <th style="border: 1px solid #000;">EXAMEN</th>
+                  <th style="border: 1px solid #000;">FECHA<br/><span style="font-size: 9px;">aaaa/mm/dd</span></th>
+                  <th style="border: 1px solid #000;">RESULTADOS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-if="doc.resultados_ids">
+                  <t t-foreach="doc.resultados_ids" t-as="res">
+                    <tr>
+                      <td style="border: 1px solid #000; text-align: left; padding-left: 5px;"><t t-esc="res.examen_id.name or ''"/></td>
+                      <td style="border: 1px solid #000;"><t t-esc="res.fecha or ''"/></td>
+                      <td style="border: 1px solid #000; text-align: left; padding-left: 5px;">
+                        <span t-esc="res.resultado or ''"/>
+                      </td>
+                    </tr>
+                  </t>
+                </t>
+                <t t-if="not doc.resultados_ids">
+                  <tr>
+                    <td colspan="3" style="border: 1px solid #000;">SIN DATOS</td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+
+            <!-- Observaciones -->
+            <t t-if="doc.observaciones">
+              <p style="margin-top: 10px; font-size: 11px; border-top: 1px solid #000; padding-top: 5px;">
+                <strong>OBSERVACIONES:</strong>
+                <span t-esc="doc.observaciones"/>
+              </p>
+            </t>
+            <!-- Sección M. DIAGNÓSTICO -->
+<h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; margin-top: 30px; text-transform: uppercase; border: 1px solid #000; margin-top:30px;">
+  M. DIAGNÓSTICO
+</h3>
+
+<!-- Subencabezado aclaratorio -->
+<p style="font-size: 10px; margin-top: 2px; margin-bottom: 4px;">
+  <strong>PRE</strong> = PRESUNTIVO    <strong>DEF</strong> = DEFINITIVO
+</p>
+
+<table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+  <thead>
+    <tr style="background-color: #ccffcc;">
+      <th style="border: 1px solid #000;">#</th>
+      <th style="border: 1px solid #000;">MOTIVO</th>
+      <th style="border: 1px solid #000;">CIE</th>
+      <th style="border: 1px solid #000;">PRE</th>
+      <th style="border: 1px solid #000;">DEF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <t t-if="doc.motivos_diagnosticos_ids">
+      <t t-foreach="doc.motivos_diagnosticos_ids" t-as="line">
+        <tr>
+          <td style="border: 1px solid #000;">-</td>
+          <td style="border: 1px solid #000; text-align: left; padding-left: 5px;"><t t-esc="line.motivo or ''"/></td>
+          <td style="border: 1px solid #000;"><t t-esc="line.cie_id.code or ''"/></td>
+          <td style="border: 1px solid #000; color: red;">
+            <t t-if="line.pref">X</t>
+          </td>
+          <td style="border: 1px solid #000; color: red;">
+            <t t-if="line.def_">X</t>
+          </td>
+        </tr>
+      </t>
+    </t>
+    <t t-if="not doc.motivos_diagnosticos_ids">
+      <tr>
+        <td colspan="5" style="border: 1px solid #000;">SIN DIAGNÓSTICOS</td>
+      </tr>
+    </t>
+  </tbody>
+</table>
+<!-- Sección N. APTITUD MÉDICA PARA EL TRABAJO -->
+<h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; margin-top: 30px; text-transform: uppercase; border: 1px solid #000;">
+  N. APTITUD MÉDICA PARA EL TRABAJO
+</h3>
+
+<table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+  <thead>
+    <tr style="background-color: #ccffcc;">
+      <th style="border: 1px solid #000;">APTO</th>
+      <th style="border: 1px solid #000; width: 30px;">
+        <t t-if="doc.actitudes_ids and doc.actitudes_ids[0].apto">X</t>
+        <t t-if="not (doc.actitudes_ids and doc.actitudes_ids[0].apto)">-</t>
+      </th>
+      <th style="border: 1px solid #000;">APTO EN OBSERVACIÓN</th>
+      <th style="border: 1px solid #000; width: 30px;">
+        <t t-if="doc.actitudes_ids and doc.actitudes_ids[0].apto_observacion">X</t>
+        <t t-if="not (doc.actitudes_ids and doc.actitudes_ids[0].apto_observacion)">-</t>
+      </th>
+      <th style="border: 1px solid #000;">APTO CON LIMITACIONES</th>
+      <th style="border: 1px solid #000; width: 30px;">
+        <t t-if="doc.actitudes_ids and doc.actitudes_ids[0].apto_limitaciones">X</t>
+        <t t-if="not (doc.actitudes_ids and doc.actitudes_ids[0].apto_limitaciones)">-</t>
+      </th>
+      <th style="border: 1px solid #000;">NO APTO</th>
+      <th style="border: 1px solid #000; width: 30px;">
+        <t t-if="doc.actitudes_ids and doc.actitudes_ids[0].no_apto">X</t>
+        <t t-if="not (doc.actitudes_ids and doc.actitudes_ids[0].no_apto)">-</t>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="background-color: #e0ffff; border: 1px solid #000; text-align: left; padding-left: 5px;">Observación</td>
+      <td colspan="7" style="border: 1px solid #000; text-align: left; padding-left: 5px;">
+        <t t-esc="doc.actitudes_ids and doc.actitudes_ids[0].observacion or ''"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color: #e0ffff; border: 1px solid #000; text-align: left; padding-left: 5px;">Limitación</td>
+      <td colspan="7" style="border: 1px solid #000; text-align: left; padding-left: 5px;">
+        <t t-esc="doc.actitudes_ids and doc.actitudes_ids[0].limitacion or ''"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- RECOMENDACIONES Y/O TRATAMIENTO -->
+<h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; margin-top: 30px; text-transform: uppercase; border: 1px solid #000;">
+  O. RECOMENDACIONES Y/O TRATAMIENTO
+</h3>
+
+<table style="width:100%; border-collapse: collapse; font-size: 11px;">
+  <tbody>
+    <t t-if="doc.recomendaciones_ids">
+      <t t-foreach="doc.recomendaciones_ids" t-as="rec">
+        <tr>
+          <td style="border: 1px solid #000; text-align:left; padding: 4px;">
+            <t t-esc="rec.recomendacion"/>
+          </td>
+        </tr>
+      </t>
+    </t>
+    <t t-if="not doc.recomendaciones_ids">
+      <tr>
+        <td style="border: 1px solid #000; padding: 4px;">Sin recomendaciones registradas</td>
+      </tr>
+    </t>
+  </tbody>
+</table>
+
+<!-- Certificación final -->
+<p style="font-size: 10px; margin-top: 10px; border: 1px solid #000; padding: 6px;">
+  CERTIFICO QUE LO ANTERIORMENTE EXPRESADO EN RELACIÓN A MI ESTADO DE SALUD ES VERDAD. SE ME HA INFORMADO LAS MEDIDAS PREVENTIVAS A TOMAR PARA DISMINUIR O MITIGAR LOS RIESGOS RELACIONADOS CON MI ACTIVIDAD LABORAL.
+</p>
+  <table style="width:100%; border-collapse: collapse; font-size:11px;">
+  <!-- Fila de títulos -->
+  <tr>
+    <td colspan="6" style="background-color:#dcdcf9; font-weight: bold; padding: 5px; border: 1px solid #000;">
+      F. DATOS DEL PROFESIONAL DE SALUD
+    </td>
+    <td style="background-color:#dcdcf9; font-weight: bold; padding: 5px; border: 1px solid #000; text-align:center;">
+      G. FIRMA DEL USUARIO
+    </td>
+  </tr>
+
+  <!-- Fila de contenido único con firmas alineadas -->
+  <tr>
+    <!-- NOMBRE Y APELLIDO -->
+    <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">
+      NOMBRE<br/>Y<br/>APELLIDO
+    </td>
+    <!-- Nombre -->
+    <td colspan="2" style="border:1px solid #000;" t-esc="doc.profesional_id.name_full"/>
+
+    <!-- CÓDIGO -->
+    <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">CÓDIGO</td>
+    <!-- Código valor -->
+    <td style="border:1px solid #000;" t-esc="doc.codigo"/>
+
+    <!-- FIRMA Y SELLO -->
+    <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">
+      <div>FIRMA Y SELLO</div>
+      <t t-if="doc.firma_sello">
+        <img t-att-src="'data:image/png;base64,' + doc.firma_sello.decode('utf-8')" style="max-height:50px; display:block; margin:auto;"/>
+      </t>
+    </td>
+
+    <!-- FIRMA USUARIO -->
+    <td style="border:1px solid #000; text-align:center;">
+      <t t-if="doc.firma_user">
+        <img t-att-src="'data:image/png;base64,' + doc.firma_user.decode('utf-8')" style="max-height:50px; display:block; margin:auto;"/>
+      </t>
+    </td>
+  </tr>
+</table>
+
+</div>
+</t>
+</t>
+</template>
+</odoo>

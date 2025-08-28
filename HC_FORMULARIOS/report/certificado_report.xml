@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="report_certificado_medico">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <div class="page" style="font-family: Arial, sans-serif; font-size: 11px;">
+
+          <!-- A. DATOS DEL ESTABLECIMIENTO - EMPRESA Y USUARIO -->
+          <h3 style="background-color: #dcdcf9; padding: 5px; font-size:14px; text-transform: uppercase; font-weight: bold;">
+            A. DATOS DEL ESTABLECIMIENTO - EMPRESA Y USUARIO
+          </h3>
+
+          <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+            <tr style="background-color: #ccffcc;">
+              <td style="border: 1px solid #000;">INSTITUCIÓN DEL SISTEMA O NOMBRE DE LA EMPRESA</td>
+              <td style="border: 1px solid #000;">RUC</td>
+              <td style="border: 1px solid #000;">CIIU</td>
+              <td style="border: 1px solid #000;">ESTABLECIMIENTO DE SALUD</td>
+              <td style="border: 1px solid #000;">NÚMERO DE HISTORIA CLÍNICA</td>
+              <td style="border: 1px solid #000;">NÚMERO DE ARCHIVO</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000;" t-esc="doc.institucion_name.name or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.ruc or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.ciiu or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.establecimiento_salud.name or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.historia_clinica or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.numero_archivo or ''"/>
+            </tr>
+
+            <tr style="background-color: #ccffcc;">
+              <td style="border: 1px solid #000;">PRIMER APELLIDO</td>
+              <td style="border: 1px solid #000;">SEGUNDO APELLIDO</td>
+              <td style="border: 1px solid #000;">PRIMER NOMBRE</td>
+              <td style="border: 1px solid #000;">SEGUNDO NOMBRE</td>
+              <td style="border: 1px solid #000;">SEXO</td>
+              <td style="border: 1px solid #000;">PUESTO DE TRABAJO (CIUO)</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000;" t-esc="doc.primer_apellido or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.segundo_apellido or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.primer_nombre or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.segundo_nombre or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.sexo or ''"/>
+              <td style="border: 1px solid #000;" t-esc="doc.puesto_trabajo_id.name or ''"/>
+            </tr>
+          </table>
+           <!-- B. DATOS GENERALES -->
+          <h3 style="background-color:#dcdcf9; padding:5px; font-size:14px; text-transform:uppercase; font-weight:bold; margin-top:8px;">B. DATOS GENERALES</h3>
+
+          <table style="width:100%; border-collapse:collapse; font-size:11px;" border="1">
+            <!-- FECHA DE EMISIÓN -->
+            <tr>
+              <td style="padding:4px; font-weight:bold;">FECHA DE EMISIÓN:</td>
+              <td style="border:1px solid #000; text-align:center; width:35px;">
+                <t t-if="doc.fecha_emision"><t t-esc="doc.fecha_emision.strftime('%Y')"/></t>
+              </td>
+              <td style="border:1px solid #000; text-align:center; width:25px;">
+                <t t-if="doc.fecha_emision"><t t-esc="doc.fecha_emision.strftime('%m')"/></t>
+              </td>
+              <td style="border:1px solid #000; text-align:center; width:25px;">
+                <t t-if="doc.fecha_emision"><t t-esc="doc.fecha_emision.strftime('%d')"/></t>
+              </td>
+              <td colspan="5"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="text-align:center;">aaaa</td>
+              <td style="text-align:center;">mm</td>
+              <td style="text-align:center;">dd</td>
+              <td colspan="5"></td>
+            </tr>
+
+            <!-- EVALUACIÓN -->
+            <tr>
+              <td style="padding:4px; font-weight:bold;">EVALUACIÓN:</td>
+
+              <td style="text-align:right;">INGRESO</td>
+              <td style="border:1px solid #000; text-align:center; width:20px;">
+                <t t-esc="'X' if doc.evaluacion_id and doc.evaluacion_id.ingreso else '-'"/>
+              </td>
+
+              <td colspan="1"></td>
+
+              <td style="text-align:right;">PERIÓDICO</td>
+              <td style="border:1px solid #000; text-align:center; width:20px;">
+                <t t-esc="'X' if doc.evaluacion_id and doc.evaluacion_id.periodico else '-'"/>
+              </td>
+
+              <td colspan="1"></td>
+
+              <td style="text-align:right;">REINTEGRO</td>
+              <td style="border:1px solid #000; text-align:center; width:20px;">
+                <t t-esc="'X' if doc.evaluacion_id and doc.evaluacion_id.reintegro else '-'"/>
+              </td>
+
+              <td colspan="1"></td>
+
+              <td style="text-align:right;">RETIRO</td>
+              <td style="border:1px solid #000; text-align:center; width:20px;">
+                <t t-esc="'X' if doc.evaluacion_id and doc.evaluacion_id.retiro else '-'"/>
+              </td>
+            </tr>
+          </table>
+          <h3 style="background-color:#dcdcf9; padding:5px; font-size:14px; text-transform:uppercase; font-weight:bold; margin-top:8px;">C. APTITUD MÉDICA LABORAL</h3>
+
+          <p style="font-size:11px;">Después de la valoración médica ocupacional se certifica que la persona en mención, es calificada como:</p>
+
+          <t t-set="aptitud" t-value="doc.aptitudes_ids[0] if doc.aptitudes_ids else None"/>
+
+          <table style="width:100%; border-collapse:collapse; font-size:11px;" border="1">
+            <tr style="background-color:#ccf1cc; text-align:center;">
+              <td>APTO</td>
+              <td><t t-esc="'X' if aptitud and aptitud.apto else '-'"/></td>
+
+              <td>APTO EN OBSERVACIÓN</td>
+              <td><t t-esc="'X' if aptitud and aptitud.apto_observacion else '-'"/></td>
+
+              <td>APTO CON LIMITACIONES</td>
+              <td><t t-esc="'X' if aptitud and aptitud.apto_limitaciones else '-'"/></td>
+
+              <td>NO APTO</td>
+              <td><t t-esc="'X' if aptitud and aptitud.no_apto else '-'"/></td>
+            </tr>
+
+            <!-- Observaciones -->
+            <tr>
+              <td colspan="8" style="font-weight:bold;">DETALLE DE OBSERVACIONES:</td>
+            </tr>
+            <tr>
+              <td colspan="8" style="text-align:center;">
+                <t t-if="aptitud and aptitud.observacion"><t t-esc="aptitud.observacion"/></t>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="8" style="text-align:center;">
+                <t t-if="aptitud and aptitud.limitacion"><t t-esc="aptitud.limitacion"/></t>
+              </td>
+            </tr>
+          </table>
+          <h3 style="background-color:#dcdcf9; padding:5px; font-size:14px; text-transform:uppercase; font-weight:bold; margin-top:8px;">D. EVALUACIÓN MÉDICA DE RETIRO</h3>
+
+          <t t-set="retiro" t-value="doc.evaluacion_retiro_ids[0] if doc.evaluacion_retiro_ids else None"/>
+
+          <table style="width:100%; border-collapse:collapse; font-size:11px;" border="1">
+              <!-- Fila 1 -->
+              <tr>
+                  <td>El usuario se realizó la evaluación médica de retiro</td>
+                  <td style="background-color:#ccf1cc;">Sí</td>
+                  <td><t t-esc="'X' if retiro and retiro.realizo_evaluacion == 'si' else '-'"/></td>
+                  <td style="background-color:#ccf1cc;">NO</td>
+                  <td><t t-esc="'X' if retiro and retiro.realizo_evaluacion == 'no' else '-'"/></td>
+              </tr>
+
+              <!-- Fila 2 -->
+              <tr>
+                  <td>Condición del diagnóstico</td>
+                  <td style="background-color:#ccf1cc;">Presuntiva</td>
+                  <td><t t-esc="'X' if retiro and retiro.condicion_diagnostico == 'presuntiva' else '-'"/></td>
+                  <td style="background-color:#ccf1cc;">Definitiva</td>
+                  <td><t t-esc="'X' if retiro and retiro.condicion_diagnostico == 'definitiva' else '-'"/></td>
+                  <td style="background-color:#ccf1cc;">No aplica</td>
+                  <td><t t-esc="'X' if retiro and retiro.condicion_diagnostico == 'no_aplica' else '-'"/></td>
+              </tr>
+
+              <!-- Fila 3 -->
+              <tr>
+                  <td>La condición de salud está relacionada con el trabajo</td>
+                  <td style="background-color:#ccf1cc;">Sí</td>
+                  <td><t t-esc="'X' if retiro and retiro.relacionada_trabajo == 'si' else '-'"/></td>
+                  <td style="background-color:#ccf1cc;">NO</td>
+                  <td><t t-esc="'X' if retiro and retiro.relacionada_trabajo == 'no' else '-'"/></td>
+                  <td style="background-color:#ccf1cc;">No aplica</td>
+                  <td><t t-esc="'X' if retiro and retiro.relacionada_trabajo == 'no_aplica' else '-'"/></td>
+              </tr>
+          </table>
+          <h3 style="background-color:#dcdcf9; padding:5px; font-size:14px; text-transform:uppercase; font-weight:bold; margin-top:8px;">E. RECOMENDACIONES</h3>
+
+          <table style="width:100%; border-collapse:collapse; font-size:11px;" border="1">
+              <t t-foreach="doc.recomendaciones_ids" t-as="reco">
+                  <tr>
+                      <td><t t-esc="reco.recomendacion"/></td>
+                  </tr>
+              </t>
+          </table>
+
+          <br/>
+
+          <p style="font-size:11px; background-color:#ccf1cc; padding:5px;">
+              Con este documento certifico que el trabajador se ha sometido a la evaluación médica requerida para (el ingreso /la ejecución/ el reintegro y retiro) al puesto laboral y se ha informado sobre los riesgos relacionados con el trabajo emitiendo recomendaciones relacionadas con su estado de salud.
+          </p>
+
+          <p style="font-size:10px;  padding:5px;">
+              La presente certificación se expide con base en la historia ocupacional del usuario (a), la cual tiene carácter de confidencial.
+          </p>
+                <table style="width:100%; border-collapse: collapse; font-size:11px;">
+  <!-- Fila de títulos -->
+  <tr>
+    <td colspan="6" style="background-color:#dcdcf9; font-weight: bold; padding: 5px; border: 1px solid #000;">
+      F. DATOS DEL PROFESIONAL DE SALUD
+    </td>
+    <td style="background-color:#dcdcf9; font-weight: bold; padding: 5px; border: 1px solid #000; text-align:center;">
+      G. FIRMA DEL USUARIO
+    </td>
+  </tr>
+
+  <!-- Fila de contenido único con firmas alineadas -->
+  <tr>
+    <!-- NOMBRE Y APELLIDO -->
+    <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">
+      NOMBRE<br/>Y<br/>APELLIDO
+    </td>
+    <!-- Nombre -->
+    <td colspan="2" style="border:1px solid #000;" t-esc="doc.profesional_id.name_full"/>
+
+    <!-- CÓDIGO -->
+    <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">CÓDIGO</td>
+    <!-- Código valor -->
+    <td style="border:1px solid #000;" t-esc="doc.codigo"/>
+
+    <!-- FIRMA Y SELLO -->
+    <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">
+      <div>FIRMA Y SELLO</div>
+      <t t-if="doc.firma_sello">
+        <img t-att-src="'data:image/png;base64,' + doc.firma_sello.decode('utf-8')" style="max-height:50px; display:block; margin:auto;"/>
+      </t>
+    </td>
+
+    <!-- FIRMA USUARIO -->
+    <td style="border:1px solid #000; text-align:center;">
+      <t t-if="doc.firma_user">
+        <img t-att-src="'data:image/png;base64,' + doc.firma_user.decode('utf-8')" style="max-height:50px; display:block; margin:auto;"/>
+      </t>
+    </td>
+  </tr>
+</table>
+
+        </div>
+      </t>
+    </t>
+  </template>
+</odoo>

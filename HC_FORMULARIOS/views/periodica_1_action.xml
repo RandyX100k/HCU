@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="periodica_1_action" model="ir.actions.act_window">
+        <field name="name">Periodica 1</field>
+        <field name="res_model">periodica.1</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

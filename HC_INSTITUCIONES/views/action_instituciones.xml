@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_instituciones" model="ir.actions.act_window">
+        <field name="name">Instituciones</field>
+        <field name="res_model">companys.hc</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

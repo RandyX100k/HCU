@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sequence_form_1" model="ir.sequence">
+        <field name="name">Secuencia de formulario inicio1</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">FORM001</field>
+        <field name="prefix">FORM01-</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="sequence_form_2" model="ir.sequence">
+        <field name="name">Secuencia de formulario inicio2</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">FORM002</field>
+        <field name="prefix">FORM02-</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+
+    <record id="sequence_form_3" model="ir.sequence">
+        <field name="name">Secuencia de formulario inicio3</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">FORM003</field>
+        <field name="prefix">FORM03-</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+
+    <record id="sequence_certificado" model="ir.sequence">
+        <field name="name">Secuencia de certificado</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">CERT</field>
+        <field name="prefix">CERT-</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+
+    <record id="sequence_periodica1" model="ir.sequence">
+        <field name="name">Secuencia de periodica</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">PERO1</field>
+        <field name="prefix">PER1-</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+
+    <record id="sequence_periodica2" model="ir.sequence">
+        <field name="name">Secuencia de periodica2</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">PERO2</field>
+        <field name="prefix">PER2-</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+     <record id="sequence_reintegro" model="ir.sequence">
+        <field name="name">Secuencia de reintegro</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">REIN</field>
+        <field name="prefix">REINS-</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+
+    <record id="sequence_retiro_1" model="ir.sequence">
+        <field name="name">Secuencia de retiro</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">RETI</field>
+        <field name="prefix">RETI-</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="secuencia_retiro_2" model="ir.sequence">
+        <field name="name">Secuencia retiro 2</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">RETI2</field>
+        <field name="prefix">RETI2</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+
+    <record id="secuencia_inmunizaciones" model="ir.sequence">
+        <field name="name">Secuenca inmunizaciones</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">INM</field>
+        <field name="prefix">INM</field>
+        <field name="suffix">-%(year)s</field>
+        <field name="padding">4</field>
+    </record>
+
+    <!-- data/formato_pago_a4.xml -->
+    <record id="paperformat_pago_a4_sin_margen" model="report.paperformat">
+        <field name="name">Pago A4 Sin Márgenes</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+        <field name="disable_shrinking">True</field>
+    </record>
+
+</odoo>

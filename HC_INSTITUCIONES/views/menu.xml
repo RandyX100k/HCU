@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_hc_instituciones" name="Instituciones" action="action_instituciones"
+              web_icon="HC_INSTITUCIONES,static/description/icon.png"/>
+
+
+</odoo>

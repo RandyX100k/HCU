@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="form_02_action" model="ir.actions.act_window">
+        <field name="name">Fomulario inicio2</field>
+        <field name="res_model">inicio.2</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

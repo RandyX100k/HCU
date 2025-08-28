@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="retiro_2_form_view" model="ir.ui.view">
+        <field name="name">retiro.2.form</field>
+        <field name="model">retiro.2</field>
+        <field name="arch" type="xml">
+            <form string="Evaluación Médica Final">
+                 <header>
+                  <button
+                    name="%(action_report_retiro_2)d"
+                    type="action"
+                    string="Imprimir Evaluación"
+                    class="btn-primary"
+                    icon="fa-print"
+                  />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" class="text-primary"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <separator string="Evaluacion medica de retiro"/>
+                        <field name="retiro_1_id"/>
+                        <field name="realizo_evaluacion"/>
+                        <field name="observaciones_examen"/>
+                    </group>
+
+                    <notebook>
+                        <!-- Página: Columna y Extremidades -->
+                        <page string="Columna y Extremidades">
+                            <field name="columna_extremidades_ids">
+                                <list editable="bottom">
+                                    <field name="signos_ids"/>
+                                    <field name="patologia"/>
+                                    <field name="descripcion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Página: Resultados de Exámenes -->
+                        <page string="Resultados de Exámenes">
+                            <field name="resultado_examen_ids">
+                                <list editable="bottom">
+                                    <field name="examen_id"/>
+                                    <field name="fecha"/>
+                                    <field name="resultado"/>
+                                </list>
+                            </field>
+                            <group>
+                                <field name="observaciones_evaluacion"/>
+                            </group>
+                        </page>
+
+                        <!-- Página: Diagnósticos -->
+                        <page string="Diagnósticos">
+                            <field name="examens_diagnosticos_ids">
+                                <list editable="bottom">
+                                    <field name="cie_id"/>
+                                    <field name="motivo"/>
+                                    <field name="pref"/>
+                                    <field name="def_"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Página: Recomendaciones -->
+                        <page string="Recomendaciones">
+                            <field name="recomendaciones_ids">
+                                <list editable="bottom">
+                                    <field name="recomendacion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Página: Profesional -->
+                        <page string="Datos del Profesional">
+                            <group>
+                                <group>
+                                    <field name="fecha_datos"/>
+                                    <field name="hora"/>
+                                    <field name="profesional_id"/>
+                                    <field name="codigo"/>
+                                </group>
+                                <group>
+                                    <field name="firma_sello" widget="signature"/>
+                                    <field name="firma_user" widget="signature"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

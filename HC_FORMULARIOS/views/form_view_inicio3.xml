@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_form_inicio3" model="ir.ui.view">
+        <field name="name">inicio.3.form</field>
+        <field name="model">inicio.3</field>
+        <field name="arch" type="xml">
+            <form string="Formulario Clínico">
+                <header>
+                  <button
+                    name="%(action_report_inicio_3)d"
+                    type="action"
+                    string="Imprimir Evaluación"
+                    class="btn-primary"
+                    icon="fa-print"
+                  />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" class="text-primary"/>
+                        </h1>
+                    </div>
+                    <!--form inicio-->
+                    <group>
+                        <field name="form_inicio_2_id"/>
+                    </group>
+                    <!-- Datos del profesional y usuario -->
+                    <group string="Datos del Profesional" col="2">
+                        <field name="fecha_datos"/>
+                        <field name="hora"/>
+                        <field name="profesional_id"/>
+                        <field name="codigo"/>
+                    </group>
+
+                    <notebook>
+                        <!-- Examen Físico y Regional -->
+                        <page string="Examen Físico y Regional">
+                            <field name="regiones_ids">
+                                <list editable="bottom">
+                                    <field name="type_region"/>
+                                    <field name="type_subregion"/>
+                                    <field name="patologia"/>
+                                    <field name="descripcion" attrs="{'invisible': [('patologia', '=', False)]}"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Columna y Extremidades -->
+                        <page string="Columna y Extremidades">
+                            <field name="columna_extremidades_ids">
+                                <list editable="bottom">
+                                    <field name="signos_ids"/>
+                                    <field name="patologia"/>
+                                    <field name="descripcion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Resultados de Exámenes -->
+                        <page string="Resultados de Exámenes">
+                            <field name="resultados_ids">
+                                <list editable="bottom">
+                                    <field name="examen_id"/>
+                                    <field name="fecha"/>
+                                    <field name="resultado"/>
+                                </list>
+                            </field>
+                             <separator string="Observaciones"/>
+                             <group>
+                               <field name="observaciones"/>
+                             </group>
+                        </page>
+
+                        <!-- Motivos Diagnósticos -->
+                        <page string="Motivos Diagnósticos">
+                            <field name="motivos_diagnosticos_ids">
+                                <list editable="bottom">
+                                    <field name="motivo"/>
+                                    <field name="cie_id"/>
+                                    <field name="pref"/>
+                                    <field name="def_"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Aptitud Médica para el Trabajo -->
+                        <page string="Aptitud Médica para el Trabajo">
+                            <field name="actitudes_ids">
+                                <list editable="bottom">
+                                    <field name="apto"/>
+                                    <field name="apto_observacion"/>
+                                    <field name="apto_limitaciones"/>
+                                    <field name="no_apto"/>
+                                    <field name="observacion"/>
+                                    <field name="limitacion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Recomendaciones o Tratamientos -->
+                        <page string="Recomendaciones o Tratamientos">
+                            <field name="recomendaciones_ids">
+                                <list editable="bottom">
+                                    <field name="recomendacion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <page string="Firmas">
+                            <group>
+                                <field name="firma_sello" widget="signature"/>
+                                <field name="firma_user" widget="signature"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

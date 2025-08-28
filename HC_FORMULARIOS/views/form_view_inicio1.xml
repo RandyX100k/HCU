@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_form_inicio_1" model="ir.ui.view">
+        <field name="name">inicio.1.form</field>
+        <field name="model">inicio.1</field>
+        <field name="arch" type="xml">
+            <form string="Formulario Evaluación Médica Ocupacional">
+                <header>
+                  <button
+                    name="%(action_report_evaluacion_ocupacional)d"
+                    type="action"
+                    string="Imprimir Evaluación"
+                    class="btn-primary"
+                    icon="fa-print"
+                  />
+                </header>
+
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" class="text-primary"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="paciente_id"/>
+                            <field name="primer_nombre"/>
+                            <field name="segundo_nombre"/>
+                            <field name="primer_apellido"/>
+                            <field name="segundo_apellido"/>
+                            <field name="sexo"/>
+                            <field name="edad"/>
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="ruc"/>
+                            <field name="ciiu"/>
+                            <field name="establecimiento_salud"/>
+                            <field name="historia_clinica"/>
+                            <field name="numero_archivo"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <page string="Datos Personales">
+                            <group>
+                                <group>
+                                    <field name="religion_id"/>
+                                    <field name="grupo_sanguineo"/>
+                                    <field name="lateralidad"/>
+                                    <field name="intruccion_id"/>
+                                    <field name="estado_civil"/>
+                                    <field name="profesion_id"/>
+                                    <field name="lugar_nacimiento"/>
+                                    <field name="fecha_nacimieto"/>
+                                </group>
+                                <group>
+                                    <field name="ocupacion_id"/>
+                                    <field name="tel"/>
+                                    <field name="direccion"/>
+                                    <field name="orientacion_sexual"/>
+                                    <field name="identidad_genero"/>
+                                    <field name="discapacidad"/>
+                                    <field name="tipo_discapacidad"/>
+                                    <field name="porcentaje"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Trabajo Actual">
+                            <group>
+                                <group>
+                                    <field name="fecha_ingreso"/>
+                                    <field name="puesto_trabajo_id"/>
+                                </group>
+                                <group>
+                                    <field name="area_trabajo_id"/>
+                                    <field name="actividades_trabajo"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Motivo Consulta">
+                            <field name="motivo_consulta" colspan="4"/>
+                            <separator string="Causas del problema"/>
+                            <field name="evaluacion_ocupacional"/>
+                        </page>
+
+                        <page string="Antecedentes Clínicos">
+                            <group>
+                                <group>
+                                    <field name="antecedentes_clinicos"/>
+                                    <field name="antecedentes_quirurgicos"/>
+                                    <field name="antecedentes_trauma"/>
+                                </group>
+                                <group>
+                                    <field name="antecedentes_hospitalizacion"/>
+                                    <field name="antecedentes_alergias"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Gineco-Obstétricos">
+                            <group>
+                                <group>
+                                    <field name="menarquia"/>
+                                    <field name="ciclos"/>
+                                    <field name="fecha_ultima_menstruacion"/>
+                                    <field name="gestas"/>
+                                    <field name="partos"/>
+                                </group>
+                                <group>
+                                    <field name="cesareas"/>
+                                    <field name="abortos"/>
+                                    <field name="hijos_vivos"/>
+                                    <field name="hijos_muertos"/>
+                                    <field name="vida_sexual_activa"/>
+                                    <field name="usa_planificacion"/>
+                                    <field name="tipo_planificacion"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Exámenes Ginecológicos">
+                            <group>
+                                <group>
+                                    <field name="papanicolaou"/>
+                                    <field name="resultado_papanicolaou"/>
+                                    <field name="colposcopia"/>
+                                    <field name="resultado_colposcopia"/>
+                                </group>
+                                <group>
+                                    <field name="eco_mamario"/>
+                                    <field name="eco_mamario_fecha"/>
+                                    <field name="resultado_eco_mamario"/>
+                                    <field name="mamografia"/>
+                                    <field name="resultado_mamografia"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Antecedentes Masculinos">
+                            <group>
+                                <group>
+                                    <field name="antigeno_prostatico"/>
+                                    <field name="resultado_antigeno"/>
+                                    <field name="eco_prostatico"/>
+                                    <field name="resultado_eco_prostatico"/>
+                                </group>
+                                <group>
+                                    <field name="usa_planificacion_m"/>
+                                    <field name="tipo_planificacion_m"/>
+                                    <field name="hijos_vivos_m"/>
+                                    <field name="hijos_muertos_m"/>
+                                </group>
+                            </group>
+                        </page>
+
+                         <page string="Estilo de Vida">
+                            <group>
+                                <!-- Columna Tabaco -->
+                                <group>
+                                    <field name="tabaco"/>
+                                    <field name="tiempo_tabaco" invisible="not tabaco"/>
+                                    <field name="ex_consumo_tabaco" invisible="not tabaco"/>
+                                    <field name="cantidad_tabaco" invisible="not tabaco"/>
+                                    <field name="tiempo_abs" invisible="not tabaco"/>
+                                </group>
+
+                                <!-- Columna Alcohol -->
+                                <group>
+                                    <field name="alcohol"/>
+                                    <field name="tiempo_alcohol" invisible="not alcohol"/>
+                                    <field name="ex_consumo_alcohol" invisible="not alcohol"/>
+                                    <field name="cantidad_alcohol" invisible="not alcohol"/>
+                                    <field name="tiempo_alcohol_abs" invisible="not alcohol"/>
+                                </group>
+
+                                <!-- Columna Drogas -->
+                                <group>
+                                    <field name="otras_drogas"/>
+                                    <field name="otras_drogas_detalle" invisible="not otras_drogas"/>
+                                </group>
+
+                                <!-- Columna Otros Estilos de Vida -->
+                                <group>
+                                    <field name="actividad_fisica"/>
+                                    <field name="estilo_vida_cual" invisible="not actividad_fisica"/>
+                                    <field name="medicacion_habitual"/>
+                                    <field name="medicacion_cual" invisible="not medicacion_habitual"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Antecedentes Laborales">
+                            <field name="antecedente_trabajo_ids">
+                                <list editable="bottom">
+                                    <field name="empresa"/>
+                                    <field name="puesto_trabajo"/>
+                                    <field name="actividades"/>
+                                    <field name="tiempo"/>
+                                    <field name="riesgo_fisico"/>
+                                    <field name="riesgo_mecanico"/>
+                                    <field name="riesgo_quimico"/>
+                                    <field name="riesgo_biologico"/>
+                                    <field name="riesgo_ergonomico"/>
+                                    <field name="riesgo_psicosocial"/>
+                                    <field name="observaciones"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <page string="Accidentes y Enfermedades">
+                            <group>
+                                <group>
+                                    <separator string="Accidentes de Trabajo"/>
+                                    <field name="descripcion_accidente"/>
+                                    <field name="calificado_accidente"/>
+                                    <field name="especificacion_accidente"/>
+                                    <field name="fecha_accidente"/>
+                                </group>
+                                <group>
+                                    <separator string="Enfermedades Profesionales"/>
+                                    <field name="descripcion_enfermedad"/>
+                                    <field name="calificado_enfermedad"/>
+                                    <field name="especificacion_enfermedad"/>
+                                    <field name="fecha_enfermedad"/>
+                                </group>
+                            </group>
+                        </page>
+
+                    </notebook>
+                    <!--2 2-->
+                    <separator string="Inicio 2-2"/>
+                     <group>
+                        <field name="enfermedad_actual"/>
+                    </group>
+                     <notebook>
+                        <page string="Antecedentes Familiares">
+                            <group>
+                                <group>
+                                    <field name="enfermedad_cardio"/>
+                                    <field name="enfermedad_metabolidca"/>
+                                    <field name="enfermedad_neurologica"/>
+                                    <field name="enfermedad_oncologica"/>
+                                </group>
+                                <group>
+                                    <field name="enfermedad_infecciosa"/>
+                                    <field name="enfermedad_hereditaria"/>
+                                    <field name="discapacidad_"/>
+                                    <field name="otra_enfermedad"/>
+                                </group>
+                            </group>
+                            <separator string="Refiere"/>
+                            <group>
+                                <field name="refiere"/>
+                            </group>
+                        </page>
+
+                        <page string="Factores de riesgos 1">
+                            <field name="riesgos_ids">
+                                <list editable="bottom">
+                                    <field name="puesto_id"/>
+                                    <field name="actividades"/>
+                                    <field name="typo_riesgos"/>
+                                    <field name="riesgo" widget="many2many_tags"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <page string="Factores de riesgos 2">
+                            <field name="riesgos_ids_2">
+                                <list editable="bottom">
+                                    <field name="puesto_id"/>
+                                    <field name="actividades"/>
+                                    <field name="typo_riesgos"/>
+                                    <field name="riesgo" widget="many2many_tags"/>
+                                    <field name="medidas_preventiva"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Actividad extra laborales">
+                            <field name="actividades_extras_laborales">
+                                <list editable="bottom">
+                                    <field name="actividad"/>
+                                </list>
+                            </field>
+                        </page>
+                        <!--organos sistemas-->
+                        <page string="Revision de organos">
+                            <field name="organos_sistemas_ids">
+                                <list editable="bottom">
+                                    <field name="organo_sistema_"/>
+                                    <field name="patologia"/>
+                                </list>
+                            </field>
+                            <group>
+                                <field name="observacion_organos"/>
+                            </group>
+                        </page>
+
+                        <page string="Constantes vitales">
+                            <group>
+                                <group>
+                                    <field name="presion_arterial"/>
+                                    <field name="temperatura"/>
+                                    <field name="frecuencia_cardiaca"/>
+                                    <field name="saturacion_oxigeno"/>
+                                </group>
+
+                                <group>
+                                    <field name="frecuencia_respiratoria"/>
+                                    <field name="peso"/>
+                                    <field name="talla"/>
+                                    <field name="indice_masa_corporal"/>
+                                    <field name="perimetro_abdominal"/>
+                                </group>
+                            </group>
+                        </page>
+
+
+                    </notebook>
+                    <separator string="Inicio 3-3"/>
+
+                    <!-- Datos del profesional y usuario -->
+                    <group string="Datos del Profesional" col="2">
+                        <field name="fecha_datos"/>
+                        <field name="hora"/>
+                        <field name="profesional_id"/>
+                        <field name="codigo"/>
+                    </group>
+
+                    <notebook>
+                        <!-- Examen Físico y Regional -->
+                        <page string="Examen Físico y Regional">
+                            <field name="regiones_ids">
+                                <list editable="bottom">
+                                    <field name="type_region"/>
+                                    <field name="type_subregion"/>
+                                    <field name="patologia"/>
+                                    <field name="descripcion" attrs="{'invisible': [('patologia', '=', False)]}"/>
+                                </list>
+                            </field>
+                            <field name="observaciones_examen_regional">
+                                <list editable="bottom">
+                                    <field name="observacion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Columna y Extremidades -->
+                        <page string="Columna y Extremidades">
+                            <field name="columna_extremidades_ids">
+                                <list editable="bottom">
+                                    <field name="signos_ids"/>
+                                    <field name="patologia"/>
+                                    <field name="descripcion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Resultados de Exámenes -->
+                        <page string="Resultados de Exámenes">
+                            <field name="resultados_ids">
+                                <list editable="bottom">
+                                    <field name="examen_id"/>
+                                    <field name="fecha"/>
+                                    <field name="resultado"/>
+                                </list>
+                            </field>
+                             <separator string="Observaciones"/>
+                             <group>
+                               <field name="observaciones"/>
+                             </group>
+                        </page>
+
+                        <!-- Motivos Diagnósticos -->
+                        <page string="Motivos Diagnósticos">
+                            <field name="motivos_diagnosticos_ids">
+                                <list editable="bottom">
+                                    <field name="motivo"/>
+                                    <field name="cie_id"/>
+                                    <field name="pref"/>
+                                    <field name="def_"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Aptitud Médica para el Trabajo -->
+                        <page string="Aptitud Médica para el Trabajo">
+                            <field name="actitudes_ids">
+                                <list editable="bottom">
+                                    <field name="apto"/>
+                                    <field name="apto_observacion"/>
+                                    <field name="apto_limitaciones"/>
+                                    <field name="no_apto"/>
+                                    <field name="observacion"/>
+                                    <field name="limitacion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Recomendaciones o Tratamientos -->
+                        <page string="Recomendaciones o Tratamientos">
+                            <field name="recomendaciones_ids">
+                                <list editable="bottom">
+                                    <field name="recomendacion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <page string="Firmas">
+                            <group>
+                                <field name="firma_sello" widget="signature"/>
+                                <field name="firma_user" widget="signature"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_inicio_3_documento">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <div class="page" style="padding: 15px; font-family: Arial, sans-serif; font-size: 12px;">
+            <h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; text-transform: uppercase; border: 1px solid #000;">
+              K. EXAMEN FÍSICO REGIONAL
+            </h3>
+
+            <p style="background-color: #ccffcc; font-weight: bold; padding: 5px; margin-bottom: 0; border: 1px solid #000;">
+              REGIONES
+            </p>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center; margin-top: 8px;">
+
+              <thead>
+                <tr style="background-color: #e6faff;">
+                  <th style="border: 1px solid #000;">Región</th>
+                  <th style="border: 1px solid #000;">Subregión</th>
+                  <th style="border: 1px solid #000;">Patología</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-if="doc.regiones_ids">
+                  <t t-foreach="doc.regiones_ids" t-as="line">
+                    <tr>
+                      <td style="border: 1px solid #000;"><t t-esc="line.type_region.name or ''"/></td>
+                      <td style="border: 1px solid #000;"><t t-esc="line.type_subregion.name or ''"/></td>
+                      <td style="border: 1px solid #000;">
+                        <t t-if="line.patologia">X</t>
+                        <t t-if="not line.patologia">–</t>
+                      </td>
+                    </tr>
+                    <t t-if="line.patologia and line.descripcion">
+                      <tr>
+                        <td colspan="3" style="border: 1px solid #000; font-size: 10px; text-align: left; padding-left: 5px;">
+                          <strong><t t-esc="line.type_region.name"/>.<t t-esc="line.type_subregion.name"/>:</strong>
+                          <t t-esc="line.descripcion"/>
+                        </td>
+                      </tr>
+                    </t>
+                  </t>
+                </t>
+                <t t-if="not doc.regiones_ids">
+                  <tr>
+                    <td colspan="3" style="border: 1px solid #000;">SIN DATOS</td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+
+            <p style="margin-top: 10px; font-size: 11px;">
+              SI EXISTE EVIDENCIA DE PATOLOGÍA MARCAR CON “X” Y DESCRIBIR EN LA SIGUIENTE SECCIÓN COLOCANDO EL NUMERAL
+            </p>
+            <h4 style="background-color: #ccffcc; padding: 6px; font-size: 12px; font-weight: bold; border: 1px solid #000; margin-top: 20px;">
+              COLUMNA Y EXTREMIDADES
+            </h4>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+              <thead>
+                <tr style="background-color: #ccffcc;">
+                  <th style="border: 1px solid #000;">SIGNO</th>
+                  <th style="border: 1px solid #000;">SI:</th>
+                  <th style="border: 1px solid #000;">–</th>
+                  <th style="border: 1px solid #000;">NO:</th>
+                  <th style="border: 1px solid #000;">–</th>
+                  <th style="border: 1px solid #000;">DESCRIPCIÓN DE LA PATOLOGÍA:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="doc.columna_extremidades_ids" t-as="linea">
+                  <tr style="background-color: #e6faff;">
+                    <td style="border: 1px solid #000;"><t t-esc="linea.signos_ids.name or ''"/></td>
+
+                    <!-- SI -->
+                    <td style="border: 1px solid #000;">
+                      <t t-if="linea.patologia">X</t>
+                      <t t-if="not linea.patologia">–</t>
+                    </td>
+                    <td style="border: 1px solid #000;">–</td>
+
+                    <!-- NO -->
+                    <td style="border: 1px solid #000;">
+                      <t t-if="not linea.patologia">X</t>
+                      <t t-if="linea.patologia">–</t>
+                    </td>
+                    <td style="border: 1px solid #000;">–</td>
+
+                    <!-- Descripción -->
+                    <td style="border: 1px solid #000; text-align: left;">
+                      <t t-esc="linea.descripcion or ''"/>
+                    </td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+            <h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; text-transform: uppercase; border: 1px solid #000; margin-top: 8px;">
+              L. RESULTADOS DE EXÁMENES GENERALES Y ESPECÍFICOS DE ACUERDO AL RIESGO Y PUESTO DE TRABAJO (IMAGEN, LABORATORIO Y OTROS)
+            </h3>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+              <thead>
+                <tr style="background-color: #ccffcc;">
+                  <th style="border: 1px solid #000;">EXAMEN</th>
+                  <th style="border: 1px solid #000;">FECHA<br/><span style="font-size: 9px;">aaaa/mm/dd</span></th>
+                  <th style="border: 1px solid #000;">RESULTADOS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-if="doc.resultados_ids">
+                  <t t-foreach="doc.resultados_ids" t-as="res">
+                    <tr>
+                      <td style="border: 1px solid #000; text-align: left; padding-left: 5px;"><t t-esc="res.examen_id.name or ''"/></td>
+                      <td style="border: 1px solid #000;"><t t-esc="res.fecha or ''"/></td>
+                      <td style="border: 1px solid #000; text-align: left; padding-left: 5px;">
+                        <span t-esc="res.resultado or ''"/>
+                      </td>
+                    </tr>
+                  </t>
+                </t>
+                <t t-if="not doc.resultados_ids">
+                  <tr>
+                    <td colspan="3" style="border: 1px solid #000;">SIN DATOS</td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+
+            <!-- Observaciones -->
+            <t t-if="doc.observaciones">
+              <p style="margin-top: 10px; font-size: 11px; border-top: 1px solid #000; padding-top: 5px;">
+                <strong>OBSERVACIONES:</strong>
+                <span t-esc="doc.observaciones"/>
+              </p>
+            </t>
+            <!-- Sección M. DIAGNÓSTICO -->
+<h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; margin-top: 30px; text-transform: uppercase; border: 1px solid #000;">
+  M. DIAGNÓSTICO
+</h3>
+
+<!-- Subencabezado aclaratorio -->
+<p style="font-size: 10px; margin-top: 2px; margin-bottom: 4px;">
+  <strong>PRE</strong> = PRESUNTIVO    <strong>DEF</strong> = DEFINITIVO
+</p>
+
+<table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+  <thead>
+    <tr style="background-color: #ccffcc;">
+      <th style="border: 1px solid #000;">#</th>
+      <th style="border: 1px solid #000;">MOTIVO</th>
+      <th style="border: 1px solid #000;">CIE</th>
+      <th style="border: 1px solid #000;">PRE</th>
+      <th style="border: 1px solid #000;">DEF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <t t-if="doc.motivos_diagnosticos_ids">
+      <t t-foreach="doc.motivos_diagnosticos_ids" t-as="line">
+        <tr>
+          <td style="border: 1px solid #000;">-</td>
+          <td style="border: 1px solid #000; text-align: left; padding-left: 5px;"><t t-esc="line.motivo or ''"/></td>
+          <td style="border: 1px solid #000;"><t t-esc="line.cie_id.code or ''"/></td>
+          <td style="border: 1px solid #000; color: red;">
+            <t t-if="line.pref">X</t>
+          </td>
+          <td style="border: 1px solid #000; color: red;">
+            <t t-if="line.def_">X</t>
+          </td>
+        </tr>
+      </t>
+    </t>
+    <t t-if="not doc.motivos_diagnosticos_ids">
+      <tr>
+        <td colspan="5" style="border: 1px solid #000;">SIN DIAGNÓSTICOS</td>
+      </tr>
+    </t>
+  </tbody>
+</table>
+<!-- Sección N. APTITUD MÉDICA PARA EL TRABAJO -->
+<h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; margin-top: 30px; text-transform: uppercase; border: 1px solid #000;">
+  N. APTITUD MÉDICA PARA EL TRABAJO
+</h3>
+
+<table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: center;">
+  <thead>
+    <tr style="background-color: #ccffcc;">
+      <th style="border: 1px solid #000;">APTO</th>
+      <th style="border: 1px solid #000; width: 30px;">
+        <t t-if="doc.actitudes_ids and doc.actitudes_ids[0].apto">X</t>
+        <t t-if="not (doc.actitudes_ids and doc.actitudes_ids[0].apto)">-</t>
+      </th>
+      <th style="border: 1px solid #000;">APTO EN OBSERVACIÓN</th>
+      <th style="border: 1px solid #000; width: 30px;">
+        <t t-if="doc.actitudes_ids and doc.actitudes_ids[0].apto_observacion">X</t>
+        <t t-if="not (doc.actitudes_ids and doc.actitudes_ids[0].apto_observacion)">-</t>
+      </th>
+      <th style="border: 1px solid #000;">APTO CON LIMITACIONES</th>
+      <th style="border: 1px solid #000; width: 30px;">
+        <t t-if="doc.actitudes_ids and doc.actitudes_ids[0].apto_limitaciones">X</t>
+        <t t-if="not (doc.actitudes_ids and doc.actitudes_ids[0].apto_limitaciones)">-</t>
+      </th>
+      <th style="border: 1px solid #000;">NO APTO</th>
+      <th style="border: 1px solid #000; width: 30px;">
+        <t t-if="doc.actitudes_ids and doc.actitudes_ids[0].no_apto">X</t>
+        <t t-if="not (doc.actitudes_ids and doc.actitudes_ids[0].no_apto)">-</t>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="background-color: #e0ffff; border: 1px solid #000; text-align: left; padding-left: 5px;">Observación</td>
+      <td colspan="7" style="border: 1px solid #000; text-align: left; padding-left: 5px;">
+        <t t-esc="doc.actitudes_ids and doc.actitudes_ids[0].observacion or ''"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color: #e0ffff; border: 1px solid #000; text-align: left; padding-left: 5px;">Limitación</td>
+      <td colspan="7" style="border: 1px solid #000; text-align: left; padding-left: 5px;">
+        <t t-esc="doc.actitudes_ids and doc.actitudes_ids[0].limitacion or ''"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- RECOMENDACIONES Y/O TRATAMIENTO -->
+<h3 style="background-color: #dcdcf9; padding: 6px; font-size: 13px; font-weight: bold; margin-top: 30px; text-transform: uppercase; border: 1px solid #000;">
+  O. RECOMENDACIONES Y/O TRATAMIENTO
+</h3>
+
+<table style="width:100%; border-collapse: collapse; font-size: 11px;">
+  <tbody>
+    <t t-if="doc.recomendaciones_ids">
+      <t t-foreach="doc.recomendaciones_ids" t-as="rec">
+        <tr>
+          <td style="border: 1px solid #000; padding: 4px;">
+            <t t-esc="rec.recomendacion"/>
+          </td>
+        </tr>
+      </t>
+    </t>
+    <t t-if="not doc.recomendaciones_ids">
+      <tr>
+        <td style="border: 1px solid #000; padding: 4px;">Sin recomendaciones registradas</td>
+      </tr>
+    </t>
+  </tbody>
+</table>
+
+<!-- Certificación final -->
+<p style="font-size: 10px; margin-top: 10px; border: 1px solid #000; padding: 6px;">
+  CERTIFICO QUE LO ANTERIORMENTE EXPRESADO EN RELACIÓN A MI ESTADO DE SALUD ES VERDAD. SE ME HA INFORMADO LAS MEDIDAS PREVENTIVAS A TOMAR PARA DISMINUIR O MITIGAR LOS RIESGOS RELACIONADOS CON MI ACTIVIDAD LABORAL.
+</p>
+        <!-- P. DATOS DEL PROFESIONAL Y Q. FIRMA DEL USUARIO -->
+    <table style="width:100%; border-collapse: collapse; margin-top: 30px; font-size:11px;">
+        <tr>
+            <!-- Título P -->
+            <td colspan="6" style="background-color:#dcdcf9; font-weight: bold; padding: 5px; border: 1px solid #000;">
+                P. DATOS DEL PROFESIONAL
+            </td>
+            <!-- Título Q -->
+            <td colspan="2" style="background-color:#dcdcf9; font-weight: bold; padding: 5px; border: 1px solid #000;">
+                -
+            </td>
+        </tr>
+        <tr>
+            <!-- Etiquetas -->
+            <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">FECHA<br/><span style="font-size:9px;">aaaa/mm/dd</span></td>
+            <td style="border:1px solid #000;" t-esc="doc.fecha_datos"/>
+
+            <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">HORA</td>
+            <td style="border:1px solid #000;" t-esc="doc.hora"/>
+
+            <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">NOMBRES Y APELLIDOS</td>
+            <td style="border:1px solid #000;" t-esc="doc.profesional_id.name_full"/>
+
+            <td style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">CÓDIGO</td>
+            <td style="border:1px solid #000;" t-esc="doc.codigo"/>
+        </tr>
+        <tr>
+            <!-- Título Firma -->
+            <td colspan="6" style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">FIRMA Y SELLO</td>
+            <td colspan="2" style="background-color:#e1f9d7; border:1px solid #000; text-align:center;">Q.FIRMA DEL USUARIO</td>
+        </tr>
+        <tr>
+            <!-- Imágenes de firmas -->
+            <td colspan="6" style="height: 60px; border: 1px solid #000; text-align: center;">
+                <t t-if="doc.firma_sello">
+                    <img t-att-src="'data:image/png;base64,' + doc.firma_sello.decode('utf-8')" style="max-height:60px;"/>
+                </t>
+            </td>
+            <td colspan="2" style="height: 60px; border: 1px solid #000; text-align: center;">
+                <t t-if="doc.firma_user">
+                    <img t-att-src="'data:image/png;base64,' + doc.firma_user.decode('utf-8')" style="max-height:60px;"/>
+                </t>
+            </td>
+        </tr>
+    </table>
+
+
+
+        </div>
+      </t>
+    </t>
+  </template>
+</odoo>

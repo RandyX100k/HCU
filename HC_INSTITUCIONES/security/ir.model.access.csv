@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_instituciones_hc_user,access.instituciones.hc.user,model_companys_hc,group_user_instituciones,1,0,0,0
+access_instituciones_hc_admin,access.instituciones.hc.admin,model_companys_hc,group_admin_instituciones,1,1,1,1

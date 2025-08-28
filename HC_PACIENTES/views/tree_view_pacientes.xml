@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="tree_view_pacientes" model="ir.ui.view">
+        <field name="name">Lista de pacientes</field>
+        <field name="model">pacientes.hc</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="nombre_completo"/>
+                <field name="religion_id"/>
+                <field name="grupo_sanguineo"/>
+                <field name="sexo"/>
+                <field name="edad"/>
+            </list>
+        </field>
+    </record>
+</odoo>

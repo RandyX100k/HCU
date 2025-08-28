@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_form_pacientes_hc" model="ir.ui.view">
+        <field name="name">pacientes.hc.form</field>
+        <field name="model">pacientes.hc</field>
+        <field name="arch" type="xml">
+            <form string="Historial Clínico del Paciente" class="o_form_narrow">
+                <header>
+                     <button type="object" name="form_inicios" icon="fa-stethoscope" string="Inicio"/>
+                     <button type="object" name="certificado" icon="fa-certificate" string="Certificado"/>
+                     <button type="object" name="periodica" icon="fa-vial" string="Periódica"/>
+                     <button type="object" name="reintegro" string="Reintegro"/>
+                     <button type="object" name="reintegro" string="Reintegro"/>
+                     <button type="object" name="retiro" string="Retiro"/>
+                     <button type="object" name="inmunizaciones" string="Inmunizaciones"/>
+
+                </header>
+
+                <sheet>
+                    <group col="2">
+                        <!-- COLUMNA IZQUIERDA: DATOS BÁSICOS -->
+                        <group string="Datos Básicos">
+                            <field name="primer_nombre" string="Primer Nombre"/>
+                            <field name="segundo_nombre" string="Segundo Nombre"/>
+                            <field name="primer_apellido" string="Primer Apellido"/>
+                            <field name="segundo_apellido" string="Segundo Apellido"/>
+                            <field name="nombre_completo"/>
+                            <field name="sexo" string="Sexo"/>
+                        </group>
+
+                        <!-- COLUMNA DERECHA: DATOS GENERALES -->
+                        <group string="Datos Generales">
+                            <field name="edad" string="Edad"/>
+                            <field name="fecha_nacimieto" string="Fecha de nacimiento"/>
+                            <field name="ocupacion_id" string="Ocupacion"/>
+                            <field name="lugar_nacimiento" string="Lugar de nacimiento"/>
+                            <field name="tel" string="Número de celular"/>
+                            <field name="direccion" string="Dirección"/>
+                        </group>
+                    </group>
+
+                    <separator string="Información Adicional" colspan="2"/>
+
+                    <!-- PESTAÑAS CENTRADAS Y VISIBLES -->
+                    <notebook>
+                        <page string="Datos Personales">
+                            <group col="2">
+                                <field name="religion_id" string="Religión"/>
+                                <field name="grupo_sanguineo" string="Grupo Sanguíneo"/>
+                                <field name="estado_civil" string="Estado civil"/>
+                                <field name="orientacion_sexual" string="Orientación sexual"/>
+                                <field name="identidad_genero" string="Identidad de género"/>
+                            </group>
+                        </page>
+
+                        <page string=" Educación y Trabajo">
+                            <group col="2">
+                                <field name="instruccion_id" string="Instrucción"/>
+                                <field name="profesion_id" string="Profesión"/>
+                                <field name="lateralidad" string="Lateralidad"/>
+                                <field name="fecha_ingreso" string="Fecha de ingreso"/>
+                                <field name="puesto_trabajo_id" string="Puesto de trabajo"/>
+                                <field name="area_trabajo_id" string="Área de trabajo"/>
+                                <field name="actividades_trabajo" string="Actividades del puesto"/>
+                            </group>
+                        </page>
+
+                        <page string="Discapacidad">
+                            <group col="2">
+                                <field name="discapacidad" string="¿Tiene discapacidad?"/>
+                                <field name="tipo_discapacidad" string="Tipo de discapacidad"/>
+                                <field name="porcentaje" string="% de discapacidad"/>
+                            </group>
+                        </page>
+
+                        <page string="Antecedentes Laborales">
+                            <field name="antecedente_trabajo_ids">
+                                <list editable="bottom">
+                                    <field name="empresa"/>
+                                    <field name="puesto_trabajo"/>
+                                    <field name="actividades"/>
+                                    <field name="tiempo"/>
+                                    <field name="riesgo_fisico"/>
+                                    <field name="riesgo_mecanico"/>
+                                    <field name="riesgo_quimico"/>
+                                    <field name="riesgo_biologico"/>
+                                    <field name="riesgo_ergonomico"/>
+                                    <field name="riesgo_psicosocial"/>
+                                    <field name="observaciones"/>
+                                </list>
+                            </field>
+                        </page>
+                        </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

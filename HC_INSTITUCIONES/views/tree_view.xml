@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="tree_view_instituciones_hc" model="ir.ui.view">
+        <field name="name">Instituciones lista</field>
+        <field name="model">companys.hc</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="ruc"/>
+                <field name="ciiu"/>
+                <field name="establecimiento"/>
+                <field name="numero_historia_clinica"/>
+            </list>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="formularios_root" name="Formularios" action="form_01_action"
+              web_icon="HC_FORMULARIOS,static/description/icon.png"/>
+
+
+    <menuitem id="certificado_menu" name="Certificado" action="certificado_action"
+              parent="formularios_root"/>
+
+    <menuitem id="periodica_1_access" name="Periodica" action="periodica_1_action"
+              parent="formularios_root"/>
+
+
+    <menuitem id="reintegro_access" name="Reintegro" action="action_reintegro"
+              parent="formularios_root"/>
+
+    <menuitem id="retior_1_access" name="Retiro 1" action="action_retiro_1"
+              parent="formularios_root"/>
+
+    <menuitem id="retiro_2_access" name="Retiro 2" action="retiro_2_action"
+              parent="formularios_root"/>
+
+    <menuitem id="inmunizaciones_access" name="Inmunizaciones" action="access_inmunizaciones_action"
+              parent="formularios_root"/>
+
+</odoo>

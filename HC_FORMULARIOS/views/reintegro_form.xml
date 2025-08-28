@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="view_form_reintegro_form" model="ir.ui.view">
+    <field name="name">reintegro.form.form</field>
+    <field name="model">reintegro.form</field>
+    <field name="arch" type="xml">
+      <form string="Formulario de Reintegro">
+             <header>
+           <button
+                   name="%(action_report_reintegro)d"
+                    type="action"
+                    string="Imprimir Evaluación"
+                    class="btn-primary"
+                    icon="fa-print"
+                  />
+                </header>
+        <sheet>
+          <div clas="oe_title">
+              <h1>
+                  <field name="name" class="text-primary"/>
+              </h1>
+          </div>
+          <group>
+            <group>
+              <field name="paciente_id"/>
+              <field name="fecha_datos"/>
+              <field name="hora"/>
+            </group>
+          </group>
+
+          <notebook>
+            <page string="Datos de Institución">
+              <group>
+                <field name="institucion_name"/>
+                <field name="establecimiento_salud"/>
+                <field name="ruc"/>
+                <field name="ciiu"/>
+                <field name="historia_clinica"/>
+                <field name="numero_archivo"/>
+              </group>
+            </page>
+
+            <page string="Datos del Paciente">
+              <group>
+                <group>
+                  <field name="primer_apellido"/>
+                  <field name="segundo_apellido"/>
+                </group>
+                <group>
+                  <field name="primer_nombre"/>
+                  <field name="segundo_nombre"/>
+                  <field name="fecha_ultimo"/>
+                  <field name="fecha_reingreso"/>
+                  <field name="total"/>
+                </group>
+                <group>
+                  <field name="sexo"/>
+                  <field name="puesto_trabajo_id"/>
+                  <field name="causa_salida"/>
+                </group>
+
+              </group>
+            </page>
+
+            <page string="Motivo y Enfermedad Actual">
+              <group>
+                <field name="motivo_consulta"/>
+                <field name="enfermedad_actual"/>
+              </group>
+            </page>
+
+            <page string="Constantes Vitales">
+              <group>
+                <group>
+                  <field name="presion_arterial"/>
+                  <field name="temperatura"/>
+                  <field name="frecuencia_cardiaca"/>
+                  <field name="saturacion_oxigeno"/>
+                </group>
+                <group>
+                  <field name="frecuencia_respiratoria"/>
+                  <field name="peso"/>
+                  <field name="talla"/>
+                  <field name="indice_masa_corporal"/>
+                  <field name="perimetro_abdominal"/>
+                </group>
+              </group>
+            </page>
+
+            <page string="Examen Físico Regional">
+                  <field name="examen_region_ids" mode="list">
+                    <list editable="bottom">
+                      <field name="type_region"/>
+                      <field name="type_subregion"/>
+                      <field name="patologia"/>
+                      <field name="descripcion"/>
+                    </list>
+                  </field>
+            </page>
+
+            <page string="Columna y Extremidades">
+                  <field name="columna_extremidades_ids" mode="list">
+                        <list editable="bottom">
+                          <field name="signos_ids"/>
+                          <field name="patologia"/>
+                          <field name="descripcion"/>
+                        </list>
+                  </field>
+                </page>
+
+            <page string="Exámenes Complementarios">
+              <field name="resultado_examen_ids" mode="list">
+                <list editable="bottom">
+                  <field name="examen_id"/>
+                  <field name="fecha"/>
+                  <field name="resultado"/>
+                </list>
+              </field>
+               <separator string="Observaciones"/>
+                 <group>
+                   <field name="observaciones"/>
+                 </group>
+            </page>
+
+            <page string="Diagnósticos">
+              <field name="examens_diagnosticos_ids">
+                <list editable="bottom">
+                  <field name="cie_id"/>
+                  <field name="motivo"/>
+                  <field name="pref"/>
+                  <field name="def_"/>
+                </list>
+              </field>
+            </page>
+
+            <page string="Aptitud Médica">
+                  <field name="aptidudes_medicas_ids" mode="list">
+                    <list editable="bottom">
+                      <field name="apto"/>
+                      <field name="apto_observacion"/>
+                      <field name="apto_limitaciones"/>
+                      <field name="no_apto"/>
+                      <field name="observacion"/>
+                      <field name="limitacion"/>
+                    </list>
+                  </field>
+            </page>
+
+            <page string="Recomendaciones">
+              <field name="recomendaciones_ids">
+                <list editable="bottom">
+                  <field name="recomendacion"/>
+                </list>
+              </field>
+            </page>
+
+               <page string="Firmas">
+                <group>
+                  <field name="profesional_id"/>
+                  <field name="codigo"/>
+                  <field name="firma_sello" widget="signature"/>
+                  <field name="firma_user" widget="signature"/>
+                </group>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+</odoo>
